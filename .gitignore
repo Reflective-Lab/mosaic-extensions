@@ -1,0 +1,11 @@
+# Extension repos are independent — tracked in their own history
+arbiter-policy/
+crucible-models/
+embassy-ports/
+ferrox-solvers/
+manifold-adapters/
+mnemos-knowledge/
+prism-analytics/
+
+.DS_Store
+.env
