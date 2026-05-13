@@ -71,6 +71,7 @@ Curated catalog for the Converge extensions workspace.
 ## Standards
 
 - [Extension Standard](Standards/Extension%20Standard.md)
+- [Suggestor Contract](Standards/Suggestor%20Contract.md)
 
 ## Planning
 

@@ -21,6 +21,8 @@ It can be used as a library, CLI, gRPC server, or Converge suggestor family.
 - Feedback, replay, batch learning, and insight jobs.
 - gRPC server/client surfaces.
 - `KnowledgeRetrievalSuggestor` and `KnowledgeStoreSuggestor`.
+- Typed Mnemos proposal provenance at the `ProposedFact` boundary.
+- `mnemos.suggestor.execute` tracing spans at knowledge suggestor boundaries.
 
 ## Feature Flags
 

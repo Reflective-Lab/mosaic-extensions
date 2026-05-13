@@ -53,9 +53,11 @@ analytics, policy engines, and source-specific connector ports.
 ## Standards
 
 - [[Standards/Extension Standard]] - minimum shape for new extension repos and crates
+- [[Standards/Suggestor Contract]] - rules for extension suggestor behavior
 
 ## Planning
 
+- [[Planning/MILESTONES]] - integration-driven short and mid-term roadmap
 - [[Planning/Next Steps]] - work still needed after extraction
 
 ## Experiments

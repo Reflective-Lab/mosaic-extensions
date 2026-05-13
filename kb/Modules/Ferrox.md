@@ -22,6 +22,8 @@ the same convergence run.
 - Formation selection optimization.
 - Native OR-Tools and HiGHS bindings.
 - Optional gRPC solver service.
+- Typed Ferrox proposal provenance at the `ProposedFact` boundary.
+- `ferrox.suggestor.execute` tracing spans at solver suggestor boundaries.
 
 ## Current Crates
 

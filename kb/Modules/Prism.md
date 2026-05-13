@@ -17,6 +17,8 @@ pack suggestors on top of Polars and Burn.
 - Training pipeline agents.
 - Analytic pack solvers and input/output types.
 - Compile-fail tests that enforce pack/suggestor authority boundaries.
+- Typed Prism proposal provenance at the `ProposedFact` boundary.
+- `prism.suggestor.execute` tracing spans at analytics suggestor boundaries.
 
 ## Public Surface
 

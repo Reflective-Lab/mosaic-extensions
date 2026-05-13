@@ -10,6 +10,25 @@ date: 2026-05-05
 It implements Cedar-based policy decisions and Converge suggestors that turn
 authorization findings into context-visible effects.
 
+Arbiter's assurance direction is Cedar-first: use Cedar validation, runtime
+tests, and Cedar Analysis / symbolic compilation before adding a separate
+Lean, Coq, or Agda verifier. Formal proof assistants remain deferred until a
+policy claim cannot be handled by Cedar's own analysis stack.
+
+HITL escalation is strict: Arbiter escalates only when Cedar would allow the
+same request with `human_approval_present = true`; otherwise the denial stays a
+reject.
+
+Formations should discover Arbiter through its `arbiter.cedar` capability
+catalog. The current Formation-facing entries are `arbiter.cedar.policy_gate`,
+`arbiter.cedar.hitl_gate`, and `arbiter.cedar.analysis_evidence`.
+
+Arbiter suggestor execution emits `arbiter.suggestor.execute` tracing spans
+with provenance, suggestor name, context key, and input count fields.
+The provenance value is derived from Arbiter's typed `ProvenanceSource`
+adapter before crossing into `converge-pack::ProposedFact`'s string-backed
+field.
+
 ## Owns
 
 - Cedar policy engine wiring.
@@ -19,6 +38,10 @@ authorization findings into context-visible effects.
 - Rate, budget, approval, data-classification, and compliance gates.
 - Reference Cedar policies for expense approval, flow governance, and vendor
   selection.
+- Cedar-first policy assurance fixtures and optional SymCC-backed analysis
+  preparation/execution artifacts.
+- Suggestor-boundary tracing spans for runtime provenance inspection.
+- Typed provenance vocabulary at the Arbiter proposal boundary.
 
 ## Public Surface
 
@@ -26,6 +49,7 @@ authorization findings into context-visible effects.
 - `PolicyGateSuggestor`
 - `DelegationVerifySuggestor`
 - `FlowGateSuggestor`
+- `CedarHitlGateSuggestor`
 - `RateLimitGateSuggestor`
 - `BudgetGateSuggestor`
 - `ApprovalGateSuggestor`
@@ -34,6 +58,8 @@ authorization findings into context-visible effects.
 - `PolicyDecision`
 - `PolicyOutcome`
 - `Delegation`
+- `formation_capabilities()`
+- `ProvenanceSource`
 
 ## Boundary
 
@@ -47,8 +73,11 @@ authorization mechanics here, and let products choose the policies they run.
 
 - `arbiter-policy/README.md`
 - `arbiter-policy/crates/arbiter/src/lib.rs`
+- `arbiter-policy/crates/arbiter/src/analysis.rs`
 - `arbiter-policy/crates/arbiter/src/engine.rs`
+- `arbiter-policy/crates/arbiter/src/formation.rs`
 - `arbiter-policy/crates/arbiter/src/suggestor.rs`
+- `arbiter-policy/crates/arbiter/invariants/*.feature`
 - `arbiter-policy/crates/arbiter/policies/*.cedar`
 - `arbiter-policy/crates/arbiter/tests/*.rs`
 

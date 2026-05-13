@@ -30,6 +30,10 @@ Extensions should expose clean library surfaces:
 - feature flags for heavy or optional backends,
 - request/response types with clear provenance and validation.
 
+Suggestors must stay advisory: they read declared context, emit proposals, and
+leave promotion to Converge. See [[Standards/Suggestor Contract]] for the
+extension-side execution contract.
+
 ## Current Examples
 
 - `ferrox-server` is a service wrapper for solver capabilities, but the product
@@ -39,4 +43,5 @@ Extensions should expose clean library surfaces:
 - `manifold` builds concrete storage and vector adapters from config, but
   deployment code decides the storage URI and credentials.
 
-See also: [[Architecture/Converge Boundary]], [[Building/Getting Started]]
+See also: [[Architecture/Converge Boundary]], [[Building/Getting Started]],
+[[Standards/Suggestor Contract]]

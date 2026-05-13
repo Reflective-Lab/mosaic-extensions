@@ -39,3 +39,44 @@ date: 2026-05-05
   capability and pack wrapper, keep hard policy in `arbiter`, hard constraints
   and optimization in `ferrox`, memory and recall in `mnemos`, and defer a
   standalone fuzzy extension until a real DSL/runtime boundary exists.
+
+## 2026-05-13
+
+- Recorded the Arbiter Cedar-first assurance decision: use Cedar validation,
+  runtime tests, and Cedar Analysis / symbolic compilation before adding a
+  custom Lean, Coq, or Agda verification layer.
+- Upgraded Arbiter's Cedar runtime dependency from the 2.4 line to the 4.10
+  line, leaving `cedar-policy-symcc` integration as the next separate slice.
+- Added the first optional SymCC-backed Arbiter analysis preparation slice:
+  an expense schema artifact, symbolic compilation, pinned preparation hashes, and
+  happy-path/negative/property tests. Solver execution and counterexample
+  capture remain the next slice.
+- Added solver-backed Arbiter analysis execution with per-environment statuses,
+  CVC5 helper wiring, deterministic fake-solver tests, and counterexample
+  capture. Real solver CI policy remains open.
+- Tightened Arbiter HITL escalation semantics so denied requests become
+  `Escalate` only when Cedar would allow the same request after explicit human
+  approval; hard policy denials remain `Reject`.
+- Added Arbiter Formation discovery metadata under the `arbiter.cedar`
+  capability family and an explicit `CedarHitlGateSuggestor` registration
+  surface for strict Cedar-backed HITL gates.
+- Added Arbiter suggestor-boundary tracing spans under
+  `arbiter.suggestor.execute`; workspace-wide tracing for every extension
+  remains open.
+- Added Arbiter's typed `ProvenanceSource` proposal-boundary adapter; broader
+  workspace adoption or upstream `converge-pack` support remains a separate
+  follow-on.
+- Migrated Ferrox, Prism, and Mnemos proposal construction to typed
+  extension-local `ProvenanceSource` adapters while preserving the current
+  string-backed `converge-pack::ProposedFact` contract.
+- Extended suggestor-boundary tracing from Arbiter to Ferrox, Prism, and
+  Mnemos using extension-local `*.suggestor.execute` spans with typed
+  provenance fields.
+- Added `kb/Standards/Suggestor Contract.md`, making extension suggestor
+  read/write, provenance, tracing, side-effect, async, error-handling, and
+  test expectations explicit.
+- Added `kb/Planning/MILESTONES.md` as the integration-driven roadmap for
+  the workspace. Anchors short-term work to the `arbiter` + `prism` spine
+  and the `cedar-policy-symcc` slice; records deferred items with explicit
+  re-open conditions (Lean/Coq/Agda, SMT, `certus-*` registry crate,
+  standalone fuzzy extension, mnemos causal extensions).

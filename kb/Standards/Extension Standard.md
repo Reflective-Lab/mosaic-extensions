@@ -33,6 +33,10 @@ Every extension README should answer:
 - What must stay in products or deployments?
 - What feature flags enable heavy or optional dependencies?
 
+Suggestor-bearing extensions should also link to [[Suggestor Contract]] and
+state which suggestors perform external I/O, native solver calls, or policy
+evaluation.
+
 ## Command Surface
 
 Every extension `Justfile` should expose:
@@ -68,4 +72,5 @@ source: human | llm | mixed
 When a page becomes stale, update it in place and link it from [[Home]] and
 [[INDEX]] if it is a durable entity.
 
-See also: [[Architecture/Dependency Rules]], [[Building/Release and Versioning]]
+See also: [[Suggestor Contract]], [[Architecture/Dependency Rules]],
+[[Building/Release and Versioning]]
