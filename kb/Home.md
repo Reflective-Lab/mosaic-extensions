@@ -61,6 +61,7 @@ analytics, policy engines, and source-specific connector ports.
 ## Planning
 
 - [[Planning/MILESTONES]] - integration-driven short and mid-term roadmap
+- [[Planning/Upstream Handoff]] - typed provenance and suggestor tracing tasks for Converge and Organism
 - [[Planning/Next Steps]] - work still needed after extraction
 
 ## Experiments

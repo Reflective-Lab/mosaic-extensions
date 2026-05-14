@@ -82,6 +82,7 @@ Curated catalog for the Converge extensions workspace.
 ## Planning
 
 - [Milestones](Planning/MILESTONES.md)
+- [Upstream Handoff](Planning/Upstream%20Handoff.md)
 - [Next Steps](Planning/Next%20Steps.md)
 
 ## Ecosystem

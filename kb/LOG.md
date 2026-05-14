@@ -45,12 +45,23 @@ date: 2026-05-05
 - Added `soter-smt` as the SMT-backed safety evidence extension home, including
   root catalog entries, repository-map ownership, CVC5 FFI ownership, and the
   `soter.smt` capability family.
+- Added the feature-gated integration harness bridge from Arbiter's
+  `CedarAnalysisSuggestor` through Cedar/SymCC generated SMT into Soter's CVC5
+  FFI backend. This keeps Arbiter as the Cedar policy owner and Soter as the
+  SMT execution owner.
 - Added `kb/Architecture/Pluralist Reasoning Substrate.md` — long-form essay
   walking the eight extensions with mathematical grounding (Zadeh, Mamdani,
   Sugeno, Tsukamoto, Cortes–Vapnik, Breiman, Freund–Schapire, Jang, Finn,
   Nichol, Kirkpatrick, Shinn), per-crate business scenarios, CVC5 attribution
   (Stanford and University of Iowa), a deferred-Lean hint, and a Formation
   diagram traced through a €25,000-invoice decision.
+- Audited the five fact-emitting extensions (arbiter, prism, mnemos, ferrox,
+  soter) and confirmed full adherence to the typed `ProvenanceSource` and
+  `<crate>.suggestor.execute` tracing-span contract. Crucible, manifold, and
+  embassy are out of scope (no Suggestor implementations). Added
+  `kb/Planning/Upstream Handoff.md` recording the three Converge and three
+  Organism platform tasks needed to lift these conventions from
+  code-review-enforced to platform-enforced contracts.
 
 ## 2026-05-13
 

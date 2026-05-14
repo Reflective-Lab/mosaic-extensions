@@ -20,3 +20,20 @@ Run it from the container root:
 just integration-test
 ```
 
+Optional solver bridge:
+
+```text
+Arbiter CedarAnalysisSuggestor
+  -> Cedar/SymCC generated SMT
+  -> Soter CVC5 FFI
+  -> CedarAnalysisReport
+```
+
+Run it from this directory when the Soter CVC5 FFI build is available:
+
+```sh
+cargo test --all-targets --features soter-cvc5
+```
+
+The bridge is intentionally product-side assembly. Arbiter owns the Cedar
+policy model and suggestor contract; Soter owns native CVC5 execution.

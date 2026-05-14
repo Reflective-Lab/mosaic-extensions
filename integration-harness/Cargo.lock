@@ -202,6 +202,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "async-recursion"
+version = "1.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3b43422f69d8ff38f95f1b2bb76517c91589a924d1559a0e935d7c8ce0274c11"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "async-stream"
 version = "0.3.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1305,6 +1316,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "cedar-policy-symcc"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6528ab1f7df438e52235e218c5fc05c64c0934ec14e75a22e66a41be5e3eb75d"
+dependencies = [
+ "async-recursion",
+ "cedar-policy",
+ "cedar-policy-core",
+ "chrono",
+ "itertools 0.14.0",
+ "miette",
+ "nonempty",
+ "num-bigint",
+ "num-traits",
+ "ref-cast",
+ "smol_str",
+ "thiserror 2.0.18",
+ "tokio",
+]
+
+[[package]]
 name = "cexpr"
 version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1543,12 +1575,13 @@ checksum = "136d3e02915a2cea4d74caa8681e2d44b1c3254bdbf17d11d41d587ff858832c"
 
 [[package]]
 name = "converge-arbiter-policy"
-version = "1.1.0"
+version = "1.1.1"
 dependencies = [
  "async-trait",
  "axum 0.8.9",
  "base64",
  "cedar-policy",
+ "cedar-policy-symcc",
  "ciborium",
  "converge-core",
  "converge-pack",
@@ -1705,6 +1738,27 @@ dependencies = [
  "serde",
  "serde_json",
  "thiserror 2.0.18",
+]
+
+[[package]]
+name = "converge-soter-cvc5-sys"
+version = "0.1.0"
+dependencies = [
+ "cc",
+]
+
+[[package]]
+name = "converge-soter-smt"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "converge-pack",
+ "converge-soter-cvc5-sys",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.18",
+ "tokio",
+ "tracing",
 ]
 
 [[package]]
@@ -4627,12 +4681,15 @@ checksum = "4a0b3262dc837d2513fe2ef31ff8461352ef932dcca31ba0c0abe33547cf6b9b"
 name = "mosaic-integration-harness"
 version = "0.0.0"
 dependencies = [
+ "async-trait",
+ "cedar-policy-symcc",
  "converge-arbiter-policy",
  "converge-core",
  "converge-kernel",
  "converge-mnemos-knowledge",
  "converge-pack",
  "converge-prism-analytics",
+ "converge-soter-smt",
  "serde_json",
  "tempfile",
  "tokio",

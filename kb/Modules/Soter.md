@@ -22,6 +22,8 @@ proof-assistant tier before a checked-proof app need exists.
 - SMT statuses: `sat`, `unsat`, `unknown`, `timeout`, `error`.
 - Native CVC5 FFI in `crates/cvc5-sys`.
 - Solver-backed suggestors.
+- Typed abstract Arbiter invariant fixtures for selected high-risk policy
+  claims.
 - Formation capability descriptors under `soter.smt`.
 - Typed `soter` provenance at the proposal boundary.
 
@@ -32,6 +34,8 @@ proof-assistant tier before a checked-proof app need exists.
 - `SmtStatus`
 - `SmtBackend`
 - `FakeSmtBackend`
+- `ArbiterExpenseCommitInvariant`
+- `ArbiterExpensePolicyModel`
 - `SmtSuggestor`
 - `ProvenanceSource`
 - `formation_capabilities()`
@@ -45,6 +49,18 @@ Soter results are `Searched` evidence.
 queries. `unsat` means no counterexample exists for the encoded SMT query.
 Neither status is a formal proof unless an independent proof checker verifies
 an emitted artifact.
+
+The first Arbiter fixture is the non-finance high-value expense commit
+invariant. The strict abstraction is expected to return `unsat`; an
+intentionally broken abstraction is expected to return `sat` with a
+counterexample. This fixture is searched evidence over a generated abstraction,
+not full Cedar semantics.
+
+The integration harness also wires Soter's `Cvc5FfiBackend` into Arbiter's
+actual Cedar/SymCC path behind the `soter-cvc5` feature. That path runs
+`CedarAnalysisSuggestor` over real Arbiter policy/schema inputs and uses Soter
+only as the CVC5 execution backend. This is the preferred cross-extension
+shape: Arbiter owns Cedar modeling; Soter owns SMT execution.
 
 ## Entry Points
 

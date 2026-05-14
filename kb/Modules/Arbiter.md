@@ -50,6 +50,11 @@ field.
 - `DelegationVerifySuggestor`
 - `FlowGateSuggestor`
 - `CedarHitlGateSuggestor`
+- `CedarAnalysisSuggestor` under the `analysis` feature
+- `CedarAnalysisBackend` under the `analysis` feature
+- `LocalCvc5AnalysisBackend` under the `analysis` feature
+- `CedarAnalysisInput`, `CedarAnalysisPlan`, and `CedarAnalysisReport` under
+  the `analysis` feature
 - `RateLimitGateSuggestor`
 - `BudgetGateSuggestor`
 - `ApprovalGateSuggestor`
