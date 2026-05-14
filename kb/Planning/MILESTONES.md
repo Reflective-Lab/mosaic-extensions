@@ -32,6 +32,13 @@ are the work. Architectural symmetry is not a reason to build.
 - Added `soter-smt` as the SMT-backed safety evidence extension with CVC5 FFI
   isolated in a sys crate, default fake-solver tests, and Formation-facing
   `soter.smt` discovery.
+- Proved Soter's native CVC5 link path and added the first CVC5-backed
+  SMT-LIB solving slice.
+- Added Arbiter's first conditional Cedar Analysis query for an actual
+  high-risk claim: non-finance supervisory principals cannot commit high-value
+  expenses even when the modeled approval/gate context is present.
+- Prepared and locally tagged Ferrox `v0.5.1` and Arbiter `v1.1.1` after clean
+  release-check runs.
 
 ## Completed 2026-05-13
 
@@ -54,11 +61,6 @@ are the work. Architectural symmetry is not a reason to build.
 
 ## Short-term (2-6 weeks)
 
-- Add conditional Cedar Analysis queries for actual high-risk Arbiter claims.
-  This is the missing step before real CVC5 can mean invariant assurance
-  rather than solver-path smoke.
-- Prove Soter's native CVC5 link path (`just deps`, `just check-cvc5`) and
-  add a first CVC5-backed SMT-LIB solving slice.
 - Extend the golden harness only when a second app-level path pulls on it.
   Keep it product-side and avoid turning it into a shared framework.
 
