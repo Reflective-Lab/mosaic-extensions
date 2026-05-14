@@ -18,6 +18,7 @@ Curated catalog for the Converge extensions workspace.
 | Manifold | Generic storage, vector, provider, and tool adapters | `manifold-adapters/` |
 | Mnemos | Knowledge base, recall, retrieval, storage, and memory suggestors | `mnemos-knowledge/` |
 | Prism | Analytics, ML, feature extraction, inference, and training suggestors | `prism-analytics/` |
+| Soter | SMT-backed safety evidence, CVC5 FFI, and solver-backed suggestors | `soter-smt/` |
 
 ## Cargo Packages
 
@@ -35,6 +36,8 @@ Curated catalog for the Converge extensions workspace.
 | `converge-manifold-adapters` | `manifold-adapters/` | Object-store, experience-store, provider, search, feed, tool, and vector adapters |
 | `converge-mnemos-knowledge` | `mnemos-knowledge/` | Knowledge base library, CLI, gRPC server, and suggestor adapters |
 | `converge-prism-analytics` | `prism-analytics/` | Analytics packs, feature agents, inference agents, and training pipeline agents |
+| `converge-soter-smt` | `soter-smt/` | SMT query/report types and solver-backed suggestors |
+| `converge-soter-cvc5-sys` | `soter-smt/` | Native CVC5 FFI boundary |
 
 ## Architecture
 
@@ -44,6 +47,8 @@ Curated catalog for the Converge extensions workspace.
 - [Dependency Rules](Architecture/Dependency%20Rules.md)
 - [Port Provider Boundary](Architecture/Port%20Provider%20Boundary.md)
 - [Runtime Assembly](Architecture/Runtime%20Assembly.md)
+- [Golden Integration Harness](Architecture/Golden%20Integration%20Harness.md)
+- [Pluralist Reasoning Substrate](Architecture/Pluralist%20Reasoning%20Substrate.md)
 - [Expert Portfolio Architecture](Architecture/Expert%20Portfolio%20Architecture.md)
 - [Extraction Status](Architecture/Extraction%20Status.md)
 
@@ -55,6 +60,7 @@ Curated catalog for the Converge extensions workspace.
 - [Manifold](Modules/Manifold.md)
 - [Mnemos](Modules/Mnemos.md)
 - [Prism](Modules/Prism.md)
+- [Soter](Modules/Soter.md)
 
 ## Building
 
@@ -75,6 +81,7 @@ Curated catalog for the Converge extensions workspace.
 
 ## Planning
 
+- [Milestones](Planning/MILESTONES.md)
 - [Next Steps](Planning/Next%20Steps.md)
 
 ## Ecosystem

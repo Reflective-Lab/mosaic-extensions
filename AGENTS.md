@@ -26,6 +26,7 @@ cross-cutting.
 | `manifold-adapters/` | Generic storage, vector, provider, and tool adapters. |
 | `mnemos-knowledge/` | Knowledge, recall, retrieval, storage, and agentic memory suggestors. |
 | `prism-analytics/` | Analytics, ML, feature extraction, inference, training, and monitoring suggestors. |
+| `soter-smt/` | SMT-backed safety evidence, CVC5 FFI, and solver suggestors. |
 
 ## Commands
 

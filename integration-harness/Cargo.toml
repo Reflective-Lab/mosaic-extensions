@@ -1,0 +1,27 @@
+[package]
+name = "mosaic-integration-harness"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.94.0"
+publish = false
+
+[dependencies]
+arbiter = { package = "converge-arbiter-policy", path = "../arbiter-policy/crates/arbiter" }
+converge-core = "3.8.1"
+converge-kernel = "3.8.1"
+converge-pack = "3.8.1"
+mnemos = { package = "converge-mnemos-knowledge", path = "../mnemos-knowledge/crates/mnemos", default-features = false, features = ["memory-only"] }
+prism = { package = "converge-prism-analytics", path = "../prism-analytics/crates/prism" }
+serde_json = "1"
+tempfile = "3"
+tokio = { version = "1.48", features = ["macros", "rt-multi-thread"] }
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"

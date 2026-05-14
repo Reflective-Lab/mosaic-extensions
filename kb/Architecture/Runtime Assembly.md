@@ -42,6 +42,12 @@ extension-side execution contract.
   embedded, remote, or disabled.
 - `manifold` builds concrete storage and vector adapters from config, but
   deployment code decides the storage URI and credentials.
+- `soter` exposes SMT query/report types and solver-backed suggestors, but
+  products decide which invariants need SMT evidence and when native CVC5 runs
+  in CI.
+- `integration-harness/` is the container's product-side executable assembly
+  check. It wires Arbiter, Prism, and Mnemos through public APIs without making
+  any extension depend on another extension.
 
 See also: [[Architecture/Converge Boundary]], [[Building/Getting Started]],
-[[Standards/Suggestor Contract]]
+[[Standards/Suggestor Contract]], [[Architecture/Golden Integration Harness]]

@@ -28,6 +28,7 @@ assemblies wire extension crates into runnable systems.
 | `manifold-adapters/` | `manifold` | Generic provider, storage, vector, fetch, feed, and tool adapters where vendors should be hidden behind capabilities. |
 | `mnemos-knowledge/` | `mnemos` | Knowledge, recall, retrieval, memory, vector stores, and learning suggestors. |
 | `prism-analytics/` | `prism` | Analytics, ML pipelines, feature extraction, inference, training, monitoring, and analytic packs. |
+| `soter-smt/` | `soter` | SMT query modeling, CVC5 native bindings, solver reports, and solver-backed suggestors. |
 
 ## Port, Provider, Backend, Suggestor
 

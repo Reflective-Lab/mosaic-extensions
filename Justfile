@@ -4,7 +4,7 @@
 
 set dotenv-load := true
 
-repos := "arbiter-policy atelier-showcase embassy-ports ferrox-solvers manifold-adapters mnemos-knowledge prism-analytics"
+repos := "arbiter-policy atelier-showcase embassy-ports ferrox-solvers manifold-adapters mnemos-knowledge prism-analytics soter-smt"
 
 # Show available recipes
 default:
@@ -118,6 +118,10 @@ lint repo="all":
       echo "== lint ${repo} =="
       (cd "${repo}" && just lint)
     done
+
+# Run cross-extension integration harnesses
+integration-test:
+    cd integration-harness && cargo test --all-targets
 
 # Generate docs for every extension, or pass a repo name
 doc repo="all":

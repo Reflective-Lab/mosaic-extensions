@@ -17,14 +17,21 @@ See also: [[Planning/Next Steps]], [[Architecture/Extension Topology]],
 
 The active integration is analytics-informed Cedar policy. Arbiter has the
 first `cedar-policy-symcc` preparation and solver-execution slices on top of
-the 4.10 runtime upgrade; real solver CI policy and selected invariant wiring
-are the immediate follow-on. All short-term milestones below are scoped to make
-that spine production-quality before new surface area is added.
+the 4.10 runtime upgrade, an explicit solver CI policy, and the first
+product-side golden harness. Conditional invariant queries are the next Arbiter
+assurance step. All short-term milestones below are scoped to make that spine
+production-quality before new surface area is added.
 
 Governing heuristic: **friction inside the active integration is the
 backlog.** Missing types, missing test harnesses, missing trace fields,
 and missing trait methods that show up while wiring `arbiter` + `prism`
 are the work. Architectural symmetry is not a reason to build.
+
+## Completed 2026-05-14
+
+- Added `soter-smt` as the SMT-backed safety evidence extension with CVC5 FFI
+  isolated in a sys crate, default fake-solver tests, and Formation-facing
+  `soter.smt` discovery.
 
 ## Completed 2026-05-13
 
@@ -38,19 +45,22 @@ are the work. Architectural symmetry is not a reason to build.
 - Documented the workspace Suggestor contract: read/write boundaries,
   provenance and tracing requirements, side-effect rules, error handling,
   async span behavior, and test expectations.
+- Added a root `integration-harness/` crate plus `just integration-test` for
+  the first Arbiter + Prism + Mnemos golden flow: Mnemos recall and Prism fuzzy
+  risk context feeding an Arbiter Cedar expense gate.
+- Made Arbiter's CVC5 policy explicit: fake-solver SymCC tests are required in
+  PR/push CI, while real CVC5 is a scheduled/manual smoke lane until
+  conditional invariant queries encode actual Arbiter claims.
 
 ## Short-term (2-6 weeks)
 
-- Lock one `arbiter` + `prism` flow end-to-end. Pick the specific
-  signal-to-policy interaction in flight (fuzzy risk score into Cedar
-  context, or prism anomaly triggering an arbiter gate). Document the
-  path and ship one golden integration test that exercises both crates.
-- Wire selected high-risk Arbiter invariants into CI with an explicit solver
-  policy. Treat Cedar Analysis as the next assurance step, not a generic
-  formal-verification framework.
-- Add a workspace-level integration-test harness wiring `arbiter` +
-  `prism` + one knowledge source against a fixture scenario. Painful to
-  retrofit; easy to add while there is only one integration to encode.
+- Add conditional Cedar Analysis queries for actual high-risk Arbiter claims.
+  This is the missing step before real CVC5 can mean invariant assurance
+  rather than solver-path smoke.
+- Prove Soter's native CVC5 link path (`just deps`, `just check-cvc5`) and
+  add a first CVC5-backed SMT-LIB solving slice.
+- Extend the golden harness only when a second app-level path pulls on it.
+  Keep it product-side and avoid turning it into a shared framework.
 
 ## Mid-term (2-4 months)
 
@@ -79,9 +89,8 @@ Each has a clear re-open condition.
   specific compliance or audit claim demands a checked proof artifact.
   Cedar Analysis and symbolic compilation cover near-term assurance
   needs. See LOG entry 2026-05-13.
-- **Z3 / CVC5 / SMT solver integration.** Re-open when an app needs
-  counterexample search or symbolic execution beyond what
-  `cedar-policy-symcc` provides.
+- **Additional SMT backends beyond CVC5.** Re-open when an app needs a second
+  solver. CVC5 now has a dedicated extension home in `soter-smt`.
 - **Generalized `certus-*` claim-registry crate.** Re-open when a third
   consumer of the same claim machinery exists. Until then, registry
   types live inside the crate that uses them.

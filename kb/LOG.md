@@ -40,8 +40,27 @@ date: 2026-05-05
   and optimization in `ferrox`, memory and recall in `mnemos`, and defer a
   standalone fuzzy extension until a real DSL/runtime boundary exists.
 
+## 2026-05-14
+
+- Added `soter-smt` as the SMT-backed safety evidence extension home, including
+  root catalog entries, repository-map ownership, CVC5 FFI ownership, and the
+  `soter.smt` capability family.
+- Added `kb/Architecture/Pluralist Reasoning Substrate.md` — long-form essay
+  walking the eight extensions with mathematical grounding (Zadeh, Mamdani,
+  Sugeno, Tsukamoto, Cortes–Vapnik, Breiman, Freund–Schapire, Jang, Finn,
+  Nichol, Kirkpatrick, Shinn), per-crate business scenarios, CVC5 attribution
+  (Stanford and University of Iowa), a deferred-Lean hint, and a Formation
+  diagram traced through a €25,000-invoice decision.
+
 ## 2026-05-13
 
+- Added `integration-harness/` and `just integration-test` for the first
+  product-side golden flow across Mnemos, Prism, and Arbiter. Documented it in
+  `kb/Architecture/Golden Integration Harness.md` and linked it from runtime
+  assembly and the entity catalog.
+- Marked the selected short-term items complete in `kb/Planning/MILESTONES.md`
+  while keeping conditional Arbiter invariant queries as the next required
+  step before real CVC5 becomes assurance evidence.
 - Recorded the Arbiter Cedar-first assurance decision: use Cedar validation,
   runtime tests, and Cedar Analysis / symbolic compilation before adding a
   custom Lean, Coq, or Agda verification layer.

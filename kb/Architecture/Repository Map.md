@@ -19,6 +19,7 @@ Run Cargo commands from the individual extension directory.
 | `manifold-adapters/` | `crates/manifold` | Generic storage, vector, and experience adapters | Generic adapter home for storage, vector, provider, and tool surfaces. |
 | `mnemos-knowledge/` | `crates/mnemos` | Knowledge base library, CLI, server, and suggestors | Extracted from `converge/crates/knowledge`; branch `main`; local git repo. |
 | `prism-analytics/` | `crates/prism` | Analytics packs and ML suggestors | Extracted from `converge/crates/analytics`; branch `main`; local git repo. |
+| `soter-smt/` | `crates/soter`, `crates/cvc5-sys` | SMT evidence, CVC5 FFI, and solver suggestors | New extension repo for Arbiter-pulled conditional invariant search. |
 
 ## Toolchain Baseline
 

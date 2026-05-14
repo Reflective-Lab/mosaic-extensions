@@ -26,6 +26,8 @@ analytics, policy engines, and source-specific connector ports.
 - [[Architecture/Dependency Rules]] - import rules, transitional deps, and promotion rules
 - [[Architecture/Port Provider Boundary]] - Embassy vs Manifold decision rule
 - [[Architecture/Runtime Assembly]] - how products wire extensions into systems
+- [[Architecture/Golden Integration Harness]] - executable cross-extension golden flows
+- [[Architecture/Pluralist Reasoning Substrate]] - eight reasoning modes, business scenarios, and a Formation in motion
 - [[Architecture/Expert Portfolio Architecture]] - why formations use specialized reasoning experts
 - [[Architecture/Extraction Status]] - current extraction state and known gaps
 
@@ -37,6 +39,7 @@ analytics, policy engines, and source-specific connector ports.
 - [[Modules/Manifold]] - generic provider, storage, and tool adapters
 - [[Modules/Mnemos]] - knowledge, recall, memory, and retrieval suggestors
 - [[Modules/Prism]] - analytics, ML, feature, and training suggestors
+- [[Modules/Soter]] - SMT-backed safety evidence and CVC5 solver suggestors
 
 ## Building
 

@@ -6,6 +6,8 @@ ferrox-solvers/
 manifold-adapters/
 mnemos-knowledge/
 prism-analytics/
+soter-smt/
 
 .DS_Store
 .env
+integration-harness/target/
