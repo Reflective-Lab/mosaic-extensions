@@ -1622,6 +1622,8 @@ dependencies = [
 [[package]]
 name = "converge-core"
 version = "3.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dfaf3f493217aef11c7ac0f4accfe60f1bb6d875e518b859b4cbc46a90c9082e"
 dependencies = [
  "async-trait",
  "converge-pack",
@@ -1663,6 +1665,8 @@ dependencies = [
 [[package]]
 name = "converge-kernel"
 version = "3.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c9ad0fdc1f3692d15b4ce6f0376d5ccc38ffb8c1c63bb896eae059908ae93239"
 dependencies = [
  "async-trait",
  "converge-core",
@@ -1706,6 +1710,8 @@ dependencies = [
 [[package]]
 name = "converge-model"
 version = "3.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8dad9485614497ea106299b9130eac538b997c1ee665e9cc68405f7678c67eb6"
 dependencies = [
  "converge-core",
  "converge-pack",
@@ -1716,6 +1722,8 @@ dependencies = [
 [[package]]
 name = "converge-optimization"
 version = "3.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3fbb4be39d347bc70a54d786ceeeead502f7cf16b10b249b42a2587cc8cb0756"
 dependencies = [
  "async-trait",
  "bitvec",
@@ -1737,6 +1745,8 @@ dependencies = [
 [[package]]
 name = "converge-pack"
 version = "3.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "54991908be2931ceee38bbbe27df06c18b936830b99b5106154ce98ed5c37c0f"
 dependencies = [
  "async-trait",
  "hex",
@@ -1768,6 +1778,8 @@ dependencies = [
 [[package]]
 name = "converge-provider"
 version = "3.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9b0aee574a11549517ad43c9cb1e7f744ee97cbaac4f4adcf9563370751242eb"
 dependencies = [
  "serde",
  "serde_json",
@@ -6115,7 +6127,7 @@ dependencies = [
  "log",
  "multimap",
  "once_cell",
- "petgraph 0.6.5",
+ "petgraph 0.7.1",
  "prettyplease",
  "prost",
  "prost-types",
