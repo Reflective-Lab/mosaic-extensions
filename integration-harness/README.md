@@ -37,3 +37,20 @@ cargo test --all-targets --features soter-cvc5
 
 The bridge is intentionally product-side assembly. Arbiter owns the Cedar
 policy model and suggestor contract; Soter owns native CVC5 execution.
+
+Crucible trained-classifier flow:
+
+```text
+crucible::fixtures::loan_default (synthetic dataset)
+  -> crucible::RandomForestModel (linfa-trees bagging of CART)
+  -> crucible::RandomForestClassifierSuggestor
+     reads ClassificationFeaturesPayload from Seeds
+     emits ClassPredictionPayload into Evaluations
+```
+
+Exercised by `tests/crucible_loan_classifier.rs`: three tests cover the
+high-risk applicant (predicted default), the low-risk applicant
+(predicted non-default), and the non-features payload rejection
+(empty `Evaluations` when seeded with a `TextPayload`). The default
+test set runs without any feature flag — no CVC5 dependency.
+
