@@ -4,7 +4,7 @@
 
 set dotenv-load := true
 
-repos := "arbiter-policy atelier-showcase embassy-ports ferrox-solvers manifold-adapters mnemos-knowledge prism-analytics soter-smt"
+repos := "arbiter-policy crucible-models embassy-ports ferrox-solvers manifold-adapters mnemos-knowledge prism-analytics soter-smt"
 
 # Show available recipes
 default:

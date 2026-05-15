@@ -1584,7 +1584,7 @@ checksum = "136d3e02915a2cea4d74caa8681e2d44b1c3254bdbf17d11d41d587ff858832c"
 
 [[package]]
 name = "converge-arbiter-policy"
-version = "1.1.1"
+version = "2.0.0"
 dependencies = [
  "async-trait",
  "axum 0.8.9",
@@ -1623,7 +1623,7 @@ dependencies = [
 
 [[package]]
 name = "converge-crucible-models"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1660,7 +1660,7 @@ dependencies = [
 
 [[package]]
 name = "converge-mnemos-knowledge"
-version = "1.1.1"
+version = "1.2.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1733,7 +1733,7 @@ dependencies = [
 
 [[package]]
 name = "converge-prism-analytics"
-version = "1.1.0"
+version = "2.0.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1761,14 +1761,14 @@ dependencies = [
 
 [[package]]
 name = "converge-soter-cvc5-sys"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "cc",
 ]
 
 [[package]]
 name = "converge-soter-smt"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "async-trait",
  "converge-pack",

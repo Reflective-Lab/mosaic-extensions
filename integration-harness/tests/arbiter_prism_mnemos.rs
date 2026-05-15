@@ -6,8 +6,14 @@ use arbiter::{
 };
 use converge_core::{AuthorityLevel, FlowAction, FlowPhase};
 use converge_kernel::{Budget, ContextKey, ContextState, Engine};
-use converge_pack::{DomainId, GateId, PackSuggestor, PolicyVersionId, ResourceKind};
-use mnemos::{KnowledgeBase, KnowledgeBaseConfig, KnowledgeEntry, KnowledgeRetrievalSuggestor};
+use converge_pack::{
+    DomainId, GateId, Pack, PackInputPayload, PackPlanPayload, PackSuggestor, PolicyVersionId,
+    ProposedFact, ResourceKind, TextPayload,
+};
+use mnemos::{
+    KnowledgeBase, KnowledgeBaseConfig, KnowledgeEntry, KnowledgeHitPayload,
+    KnowledgeRetrievalSuggestor,
+};
 use prism::FuzzyInferencePack;
 
 fn budget() -> Budget {
@@ -67,20 +73,17 @@ fn fuzzy_expense_risk_input() -> serde_json::Value {
     })
 }
 
-fn risk_confidence(strategy_content: &str) -> f64 {
-    let plan: serde_json::Value =
-        serde_json::from_str(strategy_content).expect("strategy should be a ProposedPlan JSON");
-
-    assert_eq!(plan["pack"], "fuzzy-inference");
+fn risk_confidence(plan: &PackPlanPayload) -> f64 {
+    assert_eq!(plan.pack, "fuzzy-inference");
     assert_eq!(
-        plan["plan"]["activated_rules"][0]["id"],
+        plan.plan["activated_rules"][0]["id"],
         "high-amount-pressure"
     );
 
-    let membership = plan["plan"]["memberships"]["expense_risk.high"]
+    let membership = plan.plan["memberships"]["expense_risk.high"]
         .as_f64()
         .expect("risk membership should be numeric");
-    let confidence = plan["plan"]["confidence"]
+    let confidence = plan.plan["confidence"]
         .as_f64()
         .expect("risk confidence should be numeric");
 
@@ -159,14 +162,20 @@ async fn golden_flow_uses_recall_and_fuzzy_risk_before_cedar_gate() {
 
     let mut context = ContextState::new();
     context
-        .add_input(
+        .add_proposal(ProposedFact::new(
             ContextKey::Seeds,
             "expense-risk-input",
-            fuzzy_expense_risk_input().to_string(),
-        )
+            PackInputPayload::new(FuzzyInferencePack.name(), fuzzy_expense_risk_input()),
+            "integration-test",
+        ))
         .expect("risk input should stage");
     context
-        .add_input(ContextKey::Seeds, "expense-policy-query", recall_query)
+        .add_proposal(ProposedFact::new(
+            ContextKey::Seeds,
+            "expense-policy-query",
+            TextPayload::new(recall_query),
+            "integration-test",
+        ))
         .expect("knowledge query should stage");
 
     let result = engine.run(context).await.expect("engine should run");
@@ -176,13 +185,18 @@ async fn golden_flow_uses_recall_and_fuzzy_risk_before_cedar_gate() {
     assert!(
         hypotheses
             .iter()
-            .any(|fact| fact.content().contains("High value expense commits")),
+            .filter_map(|fact| fact.payload::<KnowledgeHitPayload>())
+            .any(|payload| payload.content.contains("High value expense commits")),
         "Mnemos should retrieve the policy fixture"
     );
 
     let strategies = result.context.get(ContextKey::Strategies);
     assert_eq!(strategies.len(), 1);
-    let confidence = risk_confidence(strategies[0].content());
+    let confidence = risk_confidence(
+        strategies[0]
+            .require_payload::<PackPlanPayload>()
+            .expect("fuzzy pack should emit typed pack plan payload"),
+    );
     assert!(confidence >= 0.8);
 
     let amount = if confidence >= 0.8 { 8_400 } else { 4_000 };

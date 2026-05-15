@@ -62,16 +62,13 @@ The parent `Justfile` is only a cross-repo command wrapper.
 | If you are working on... | Use... | Main packages or crates |
 |---|---|---|
 | Cedar policy gates, delegation checks, authorization decisions | `arbiter-policy/` | `converge-arbiter-policy` / `arbiter` |
-| worked examples, domain packs, showcase material | `atelier-showcase/` | `converge-atelier-domain`, `organism-domain`, `crates/example-*` |
+| trained models, training pipelines, classifier suggestors | `crucible-models/` | `converge-crucible-models` |
 | source-specific connector ports where the external system identity matters | `embassy-ports/` | `converge-embassy-pack`, `converge-embassy-linkedin` |
 | native optimization solvers, scheduling, routing, MIP, CP-SAT | `ferrox-solvers/` | `converge-ferrox-solver`, `converge-ferrox-server`, `converge-ferrox-*-sys` |
 | generic provider, storage, vector, fetch, feed, LLM, embedding, and tool adapters | `manifold-adapters/` | `converge-manifold-adapters` |
 | knowledge bases, recall, retrieval, storage, and agentic memory | `mnemos-knowledge/` | `converge-mnemos-knowledge` |
-| analytics, ML, features, inference, training, monitoring, analytic packs | `prism-analytics/` | `converge-prism-analytics` |
-
-Atelier is the showcase sibling in this workspace. It demonstrates extension
-and Converge usage; it is not where production adapter, solver, policy, memory,
-or analytics implementations should land.
+| closed-form analytics, features, inference, fuzzy logic, analytic packs | `prism-analytics/` | `converge-prism-analytics` |
+| SMT-backed safety evidence, CVC5 FFI, solver-backed suggestors | `soter-smt/` | `converge-soter-smt`, `converge-soter-cvc5-sys` |
 
 ## Extension Versions
 
@@ -80,13 +77,14 @@ All extension release lines target Converge `3.8.1`.
 
 | Repository | Workspace Version | Converge Baseline | Cargo Packages |
 |---|---:|---|---|
-| `arbiter-policy/` | `1.0.0` | `3.8.1` | `converge-arbiter-policy` |
-| `atelier-showcase/` | `1.0.0` | `3.8.1` | `converge-atelier-domain`, `organism-domain`, example packages |
-| `embassy-ports/` | `1.0.0` | `3.8.1` | `converge-embassy-pack`, `converge-embassy-linkedin` |
-| `ferrox-solvers/` | `0.4.1` | `3.8.1` | `converge-ferrox-solver`, `converge-ferrox-server`, `converge-ferrox-ortools-sys`, `converge-ferrox-highs-sys` |
-| `manifold-adapters/` | `1.0.0` | `3.8.1` | `converge-manifold-adapters` |
-| `mnemos-knowledge/` | `1.0.0` | `3.8.1` | `converge-mnemos-knowledge` |
-| `prism-analytics/` | `1.0.0` | `3.8.1` | `converge-prism-analytics` |
+| `arbiter-policy/` | `2.0.0` | `3.8.1` | `converge-arbiter-policy` |
+| `crucible-models/` | `0.2.0` | `3.8.1` | `converge-crucible-models` |
+| `embassy-ports/` | `1.1.1` | `3.8.1` | `converge-embassy-pack`, `converge-embassy-linkedin` |
+| `ferrox-solvers/` | `0.6.0` | `3.8.1` | `converge-ferrox-solver`, `converge-ferrox-server`, `converge-ferrox-ortools-sys`, `converge-ferrox-highs-sys` |
+| `manifold-adapters/` | `1.1.1` | `3.8.1` | `converge-manifold-adapters` |
+| `mnemos-knowledge/` | `1.2.0` | `3.8.1` | `converge-mnemos-knowledge` |
+| `prism-analytics/` | `2.0.0` | `3.8.1` | `converge-prism-analytics` |
+| `soter-smt/` | `0.2.0` | `3.8.1` | `converge-soter-smt`, `converge-soter-cvc5-sys` |
 
 Extension repos target Converge `3.8.1` public contracts from crates.io.
 Keep local `[patch.crates-io]` overrides out of extension repos unless the task
@@ -122,14 +120,15 @@ Typical package choices:
 
 ```toml
 [dependencies]
-arbiter = { package = "converge-arbiter-policy", version = "1.0.0" }
-atelier-domain = { package = "converge-atelier-domain", version = "1.0.0" }
-embassy-pack = { package = "converge-embassy-pack", version = "1.0.0" }
-embassy-linkedin = { package = "converge-embassy-linkedin", version = "1.0.0" }
-ferrox = { package = "converge-ferrox-solver", version = "0.4.1", default-features = false }
-manifold = { package = "converge-manifold-adapters", version = "1.0.0" }
-mnemos = { package = "converge-mnemos-knowledge", version = "1.0.0" }
-prism = { package = "converge-prism-analytics", version = "1.0.0" }
+arbiter = { package = "converge-arbiter-policy", version = "2.0.0" }
+crucible = { package = "converge-crucible-models", version = "0.2.0" }
+embassy-pack = { package = "converge-embassy-pack", version = "1.1.1" }
+embassy-linkedin = { package = "converge-embassy-linkedin", version = "1.1.1" }
+ferrox = { package = "converge-ferrox-solver", version = "0.6.0", default-features = false }
+manifold = { package = "converge-manifold-adapters", version = "1.1.1" }
+mnemos = { package = "converge-mnemos-knowledge", version = "1.2.0" }
+prism = { package = "converge-prism-analytics", version = "2.0.0" }
+soter = { package = "converge-soter-smt", version = "0.2.0", default-features = false }
 ```
 
 Enable heavy features deliberately. Native solvers, database drivers, cloud
@@ -175,12 +174,13 @@ Use the repo-specific `Justfile` when features or native prerequisites matter.
 | Repository | Useful checks |
 |---|---|
 | `arbiter-policy/` | `just check`, `just test`, `just lint`, `just doc` |
-| `atelier-showcase/` | `just check`, `just test`, `just lint`, `just release-check` |
+| `crucible-models/` | `just check`, `just test`, `just lint`, `just doc` |
 | `embassy-ports/` | `just check`, `just test`, `just lint`, `just doc` |
 | `ferrox-solvers/` | `just check`, `just test`, `just deps`, `just test-full`, `just doc` |
 | `manifold-adapters/` | `just check`, `just check-all`, `just test`, `just lint`, `just doc` |
 | `mnemos-knowledge/` | `just check`, `just check-memory`, `just test`, `just lint`, `just doc` |
 | `prism-analytics/` | `just check`, `just check-all`, `just test`, `just lint`, `just doc` |
+| `soter-smt/` | `just check`, `just test`, `just lint`, `cargo test --features cvc5` |
 
 Native solver work in Ferrox requires native dependency setup through `just deps`
 or a narrower `just deps-ortools` / `just deps-highs`.
@@ -214,46 +214,33 @@ decision behavior, delegation checks, and reusable policy suggestors. Product
 repos own production policy bundles, keys, rollout controls, and audit
 retention.
 
-### Atelier
+### Crucible
 
-Use `atelier-showcase/` for worked exemplars and reference domain packs. It is
-the place to demonstrate how Converge and extensions look in concrete flows,
-not the place to add production adapters or foundation contracts.
+Use `crucible-models/` for trained models, training pipelines, classifier
+suggestors, and typed prediction payloads.
 
 Primary surface:
 
-- `crates/atelier-domain`
-- `crates/organism-domain`
-- `crates/example-*`
-- `examples/organism/*`
+- `ClassifierModel`
+- `RandomForestModel`
+- `DecisionTreeClassifier`
+- `ClassifierSuggestor`
+- `ClassificationFeaturesPayload`
+- `ClassPredictionPayload`
 
 Workspace package names:
 
-- `converge-atelier-domain`
-- `organism-domain`
-- `example-adaptive-gap-loop`
-- `example-custom-agent`
-- `example-custom-provider`
-- `example-expense-approval`
-- `example-fixed-point-vs-budget`
-- `example-formation-mixed`
-- `example-hello-convergence`
-- `example-intent-codec-loop`
-- `example-live-formation`
-- `example-loan-application`
-- `example-meeting-scheduler`
-- `example-reconciliation-loop`
-- `example-vendor-selection`
+- `converge-crucible-models`
 
 Entry points:
 
-- `atelier-showcase/README.md`
-- `atelier-showcase/crates/atelier-domain/src/lib.rs`
-- runnable example crates under `atelier-showcase/crates/example-*`
+- `crucible-models/README.md`
+- `crucible-models/crates/crucible/src/lib.rs`
+- `crucible-models/crates/crucible/src/training.rs`
+- `crucible-models/crates/crucible/src/{ensembles,trees}/`
 
-Atelier may depend on Converge and sibling extensions to show complete
-patterns. Keep examples honest: if reusable behavior graduates from a showcase
-into a product-neutral extension, move it to the appropriate extension repo.
+Crucible owns fitting and trained artifacts. Prism owns closed-form rules and
+hand-authored inference.
 
 ### Embassy
 
@@ -383,14 +370,14 @@ Converge decides what becomes fact.
 
 ### Prism
 
-Use `prism-analytics/` for analytics and ML pipeline capabilities.
+Use `prism-analytics/` for closed-form analytics, feature extraction, fuzzy
+logic, and inference packs.
 
 Primary surface:
 
 - `FeatureAgent`
 - `InferenceAgent`
-- dataset, validation, feature engineering, training, evaluation, registry,
-  monitoring, deployment, and sample inference agents
+- Mamdani, Sugeno, and Tsukamoto fuzzy inference packs
 - analytic packs for anomaly detection, classification, descriptive stats,
   forecasting, ranking, regression, segmentation, similarity, and trend
   detection
@@ -398,7 +385,6 @@ Primary surface:
 Feature flags:
 
 - default features are empty
-- `storage` enables optional `converge-storage` support
 - `excel` enables Excel ingestion through `calamine`
 
 Entry points:
@@ -406,12 +392,34 @@ Entry points:
 - `prism-analytics/README.md`
 - `prism-analytics/crates/prism/src/lib.rs`
 - `prism-analytics/crates/prism/src/engine.rs`
-- `prism-analytics/crates/prism/src/training.rs`
+- `prism-analytics/crates/prism/src/fuzzy/`
 - `prism-analytics/crates/prism/src/packs/`
 - `prism-analytics/crates/prism/tests/`
 
-Prism outputs proposals and analytic evidence. Products own domain datasets,
-model rollout policy, credentials, and deployment topology.
+Prism outputs proposals and analytic evidence. Training, model rollout policy,
+and fitted artifacts live in Crucible or product repositories.
+
+### Soter
+
+Use `soter-smt/` for SMT-backed safety evidence and CVC5 integration.
+
+Primary surface:
+
+- `SmtQuery`
+- `SmtReport`
+- `SmtSuggestor`
+- fake in-process backend for deterministic CI
+- CVC5 FFI backend behind the `cvc5` feature
+
+Entry points:
+
+- `soter-smt/README.md`
+- `soter-smt/crates/soter/src/lib.rs`
+- `soter-smt/crates/soter/src/cvc5.rs`
+- `soter-smt/crates/cvc5-sys/src/lib.rs`
+
+Soter searches or refutes bounded SMT claims. It does not own Arbiter policy
+semantics; Arbiter owns Cedar policy models and invariant adequacy fixtures.
 
 ## Boundary Rules
 

@@ -20,7 +20,7 @@ Run commands from an individual extension repository. The parent
 cd /Users/kpernyer/dev/extensions/arbiter-policy
 cargo check
 
-cd /Users/kpernyer/dev/extensions/atelier-showcase
+cd /Users/kpernyer/dev/extensions/crucible-models
 cargo check
 
 cd /Users/kpernyer/dev/extensions/embassy-ports
@@ -37,12 +37,15 @@ cargo check
 
 cd /Users/kpernyer/dev/extensions/prism-analytics
 cargo check
+
+cd /Users/kpernyer/dev/extensions/soter-smt
+cargo check
 ```
 
 To check all current extension workspaces:
 
 ```bash
-for repo in arbiter-policy atelier-showcase embassy-ports ferrox-solvers manifold-adapters mnemos-knowledge prism-analytics; do
+for repo in arbiter-policy crucible-models embassy-ports ferrox-solvers manifold-adapters mnemos-knowledge prism-analytics soter-smt; do
   (cd "/Users/kpernyer/dev/extensions/$repo" && cargo check)
 done
 ```
@@ -57,7 +60,10 @@ cd /Users/kpernyer/dev/extensions/manifold-adapters
 cargo check -p manifold --features all-storage
 
 cd /Users/kpernyer/dev/extensions/prism-analytics
-cargo check -p prism --features storage,excel
+cargo check -p prism --features excel
+
+cd /Users/kpernyer/dev/extensions/soter-smt
+cargo check -p soter --features cvc5
 
 cd /Users/kpernyer/dev/extensions/mnemos-knowledge
 cargo check -p mnemos --no-default-features --features memory-only
@@ -68,9 +74,6 @@ cargo check -p mnemos --no-default-features --features memory-only
 Extension repos depend on published Converge crates from crates.io. Keep local
 `[patch.crates-io]` overrides out of the repos unless a task explicitly
 requires testing unpublished foundation changes.
-
-`atelier-showcase` also has a local Organism development override that assumes
-the checkout lives at `/Users/kpernyer/dev/extensions/atelier-showcase`.
 
 ## First Pages to Read
 

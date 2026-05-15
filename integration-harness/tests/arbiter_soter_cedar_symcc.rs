@@ -13,6 +13,7 @@ use arbiter::{
 };
 use cedar_policy_symcc::solver::{Decision, DecisionWithModel, Solver, SolverError};
 use converge_kernel::{Budget, ContextKey, ContextState, Engine};
+use converge_pack::ProposedFact;
 use soter::{Cvc5FfiBackend, SmtBackend, SmtQuery, SmtReport, SmtStatus};
 use tokio::io::AsyncWrite;
 
@@ -214,11 +215,12 @@ async fn cedar_analysis_suggestor_emits_soter_cvc5_report() {
 
     let mut context = ContextState::new();
     context
-        .add_input(
+        .add_proposal(ProposedFact::new(
             ContextKey::Seeds,
             "cedar-analysis-input",
-            serde_json::to_string(&expense_claim_input()).expect("input should serialize"),
-        )
+            expense_claim_input(),
+            "integration-test",
+        ))
         .expect("analysis input should stage");
 
     let result = engine.run(context).await.expect("engine should run");
@@ -227,8 +229,9 @@ async fn cedar_analysis_suggestor_emits_soter_cvc5_report() {
     let evaluations = result.context.get(ContextKey::Evaluations);
     assert_eq!(evaluations.len(), 1);
 
-    let report: CedarAnalysisReport =
-        serde_json::from_str(evaluations[0].content()).expect("report should deserialize");
+    let report = evaluations[0]
+        .require_payload::<CedarAnalysisReport>()
+        .expect("report should be a typed Cedar analysis payload");
     assert_eq!(report.status, CedarAnalysisExecutionStatus::NoViolation);
     assert_eq!(report.plan.invariant_id, INVARIANT_ID);
     assert_eq!(

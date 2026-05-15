@@ -12,12 +12,12 @@ Curated catalog for the Converge extensions workspace.
 | Entity | Description | Location |
 |---|---|---|
 | Arbiter | Cedar policy engine and policy gate suggestors | `arbiter-policy/` |
-| Atelier | Worked exemplars and showcase material | `atelier-showcase/` |
+| Crucible | Training pipelines, trained-artifact packs, and classifier suggestors | `crucible-models/` |
 | Embassy | Source-specific connector ports where foreign-system identity is part of the contract | `embassy-ports/` |
 | Ferrox | Native optimization solver integrations and solver suggestors | `ferrox-solvers/` |
 | Manifold | Generic storage, vector, provider, and tool adapters | `manifold-adapters/` |
 | Mnemos | Knowledge base, recall, retrieval, storage, and memory suggestors | `mnemos-knowledge/` |
-| Prism | Analytics, ML, feature extraction, inference, and training suggestors | `prism-analytics/` |
+| Prism | Closed-form analytics, feature extraction, inference, and fuzzy suggestors | `prism-analytics/` |
 | Soter | SMT-backed safety evidence, CVC5 FFI, and solver-backed suggestors | `soter-smt/` |
 
 ## Cargo Packages
@@ -25,8 +25,7 @@ Curated catalog for the Converge extensions workspace.
 | Package | Repository | Role |
 |---|---|---|
 | `converge-arbiter-policy` | `arbiter-policy/` | Cedar PDP, policy decisions, delegation verification, flow gates |
-| `converge-atelier-domain` | `atelier-showcase/` | Built-in domain packs and reference domain agents |
-| `organism-domain` | `atelier-showcase/` | Organism-oriented domain packs used by showcase examples |
+| `converge-crucible-models` | `crucible-models/` | Training pipelines, trained-artifact packs, and classifier suggestors |
 | `converge-embassy-pack` | `embassy-ports/` | Shared connector call context and provenanced observations |
 | `converge-embassy-linkedin` | `embassy-ports/` | LinkedIn connector port and stub provider |
 | `converge-ferrox-solver` | `ferrox-solvers/` | CP-SAT, LP, MIP, scheduling, routing, and job-shop suggestors |
@@ -35,7 +34,7 @@ Curated catalog for the Converge extensions workspace.
 | `converge-ferrox-highs-sys` | `ferrox-solvers/` | HiGHS native binding wrapper |
 | `converge-manifold-adapters` | `manifold-adapters/` | Object-store, experience-store, provider, search, feed, tool, and vector adapters |
 | `converge-mnemos-knowledge` | `mnemos-knowledge/` | Knowledge base library, CLI, gRPC server, and suggestor adapters |
-| `converge-prism-analytics` | `prism-analytics/` | Analytics packs, feature agents, inference agents, and training pipeline agents |
+| `converge-prism-analytics` | `prism-analytics/` | Analytics packs, feature agents, inference agents, and fuzzy inference packs |
 | `converge-soter-smt` | `soter-smt/` | SMT query/report types and solver-backed suggestors |
 | `converge-soter-cvc5-sys` | `soter-smt/` | Native CVC5 FFI boundary |
 

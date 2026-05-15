@@ -102,21 +102,38 @@ are the work. Architectural symmetry is not a reason to build.
   generic fact registry; it is to remove raw payload assumptions from one
   product-relevant promotion path. See [[Typed Payload Boundaries]].
 - Native solver assurance hardening for `ferrox-solvers` and `soter-smt`.
-  Solver behavior is now safer, but audit confidence still depends on knowing
-  which native bits were built, linked, and run. Deliverables, in order:
+  Current state: solver execution identity is recorded in Ferrox outputs and
+  Soter reports via Converge's shared `ExecutionIdentity` /
+  `ExecutionIdentityEvidence` contracts. The remaining risk is not "what did
+  the solver say?" but "what native source, build flags, linked library, and
+  runtime mode produced that answer, and can CI prove it did not drift?"
+
+  Why this matters:
+  - **Operator perspective:** production behavior can change when a machine
+    links a different OR-Tools, HiGHS, or CVC5 library, even if the Rust query
+    is identical.
+  - **Audit perspective:** a later review must be able to answer which native
+    bits and build configuration produced a decision, and whether a rerun used
+    the same bits.
+  - **Release/CI perspective:** drift should fail before merge or release, not
+    after an assurance report is questioned.
+  - **Developer perspective:** local conveniences such as external roots and
+    auto-download are useful, but they must not silently define the assurance
+    lane.
+
+  Deliverables, in order:
   1. Add a checked-in native dependency lock/audit manifest for OR-Tools,
      HiGHS, and CVC5 covering name, version, source URL, expected checkout
      commit, build flags, and available artifact/header/library fingerprints.
   2. Add a Linux + macOS CI matrix for Ferrox full-feature checks/tests,
-     Soter CVC5-feature checks/tests, and clippy. CI must fail when a native
-     checkout commit differs from the manifest.
-  3. Tighten `SOTER_CVC5_ROOT` policy so assurance CI either rejects external
+     Soter CVC5-feature checks/tests, and clippy.
+  3. Make CI fail when an OR-Tools, HiGHS, or CVC5 checkout commit differs from
+     the checked-in manifest.
+  4. Tighten `SOTER_CVC5_ROOT` policy so assurance CI either rejects external
      roots or requires an explicit trusted-external-root mode that records and
      version-checks the linked CVC5.
-  4. Disable or isolate CVC5 auto-download in assurance CI. Local convenience
+  5. Disable or isolate CVC5 auto-download in assurance CI. Local convenience
      fetches remain acceptable only outside the assurance lane.
-  5. Record native solver identity in Ferrox/Soter evidence so later audit can
-     distinguish the same query solved by a different native binary or config.
 - Extend the golden harness only when a second app-level path pulls on it.
   Keep it product-side and avoid turning it into a shared framework.
 

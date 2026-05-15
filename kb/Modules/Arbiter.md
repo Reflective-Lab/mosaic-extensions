@@ -51,6 +51,8 @@ field.
   selection.
 - Cedar-first policy assurance fixtures and optional SymCC-backed analysis
   preparation/execution artifacts.
+- Shared Converge `ExecutionIdentity` on solver-backed Cedar Analysis reports,
+  including native identity metadata for the local external CVC5 process path.
 - Suggestor-boundary tracing spans for runtime provenance inspection.
 - Typed provenance vocabulary at the Arbiter proposal boundary.
 
@@ -64,8 +66,8 @@ field.
 - `CedarAnalysisSuggestor` under the `analysis` feature
 - `CedarAnalysisBackend` under the `analysis` feature
 - `LocalCvc5AnalysisBackend` under the `analysis` feature
-- `CedarAnalysisInput`, `CedarAnalysisPlan`, and `CedarAnalysisReport` under
-  the `analysis` feature
+- `CedarAnalysisInput`, `CedarAnalysisPlan`, and `CedarAnalysisReport` v2 under
+  the `analysis` feature. Reports include `ExecutionIdentity`.
 - `EXPENSE_NON_FINANCE_HIGH_VALUE_COMMIT_CLAIM_POLICY` under the `analysis`
   feature
 - `RateLimitGateSuggestor`

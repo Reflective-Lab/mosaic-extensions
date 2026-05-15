@@ -14,13 +14,14 @@ All extension release lines target Converge `3.8.1`.
 
 | Repository | Workspace Version | Converge Baseline | Cargo Packages |
 |---|---:|---|---|
-| `arbiter-policy/` | `1.0.0` | `3.8.1` | `converge-arbiter-policy` |
-| `atelier-showcase/` | `1.0.0` | `3.8.1` | `converge-atelier-domain`, `organism-domain`, example packages |
-| `embassy-ports/` | `1.0.0` | `3.8.1` | `converge-embassy-pack`, `converge-embassy-linkedin` |
-| `ferrox-solvers/` | `0.4.1` | `3.8.1` | `converge-ferrox-solver`, `converge-ferrox-server`, `converge-ferrox-ortools-sys`, `converge-ferrox-highs-sys` |
-| `manifold-adapters/` | `1.0.0` | `3.8.1` | `converge-manifold-adapters` |
-| `mnemos-knowledge/` | `1.0.0` | `3.8.1` | `converge-mnemos-knowledge` |
-| `prism-analytics/` | `1.0.0` | `3.8.1` | `converge-prism-analytics` |
+| `arbiter-policy/` | `2.0.0` | `3.8.1` | `converge-arbiter-policy` |
+| `crucible-models/` | `0.2.0` | `3.8.1` | `converge-crucible-models` |
+| `embassy-ports/` | `1.1.1` | `3.8.1` | `converge-embassy-pack`, `converge-embassy-linkedin` |
+| `ferrox-solvers/` | `0.6.0` | `3.8.1` | `converge-ferrox-solver`, `converge-ferrox-server`, `converge-ferrox-ortools-sys`, `converge-ferrox-highs-sys` |
+| `manifold-adapters/` | `1.1.1` | `3.8.1` | `converge-manifold-adapters` |
+| `mnemos-knowledge/` | `1.2.0` | `3.8.1` | `converge-mnemos-knowledge` |
+| `prism-analytics/` | `2.0.0` | `3.8.1` | `converge-prism-analytics` |
+| `soter-smt/` | `0.2.0` | `3.8.1` | `converge-soter-smt`, `converge-soter-cvc5-sys` |
 
 ## Converge Version Baseline
 

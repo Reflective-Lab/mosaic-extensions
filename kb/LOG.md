@@ -42,6 +42,22 @@ date: 2026-05-05
 
 ## 2026-05-15
 
+- Updated the root command catalog and topology table to match the current
+  local extension homes: `crucible-models` is present, while `atelier-showcase`
+  is not in this workspace checkout.
+- Promoted execution audit identity to a shared Converge contract after Soter
+  and Ferrox independently needed the same shape. Soter reports now carry
+  `ExecutionIdentity`; Ferrox solver plans use the shared type; CP-SAT
+  Formation emits `converge.execution_identity.evidence` beside generic
+  `FormationPlan` output.
+- Confirmed Arbiter as the next real consumer of the shared execution identity:
+  solver-backed `CedarAnalysisReport` evidence now records the SymCC/CVC5
+  execution identity instead of leaving backend identity implicit.
+- Hardened the `ProposedFact` payload boundary across extensions: Arbiter,
+  Soter, Ferrox, Prism, Mnemos, Crucible, and the integration harness now use
+  typed `FactPayload` reads/writes in process. Generic pack flows use
+  `PackInputPayload` / `PackPlanPayload`; diagnostics use `DiagnosticPayload`;
+  serialization is reserved for wire/storage/replay borders.
 - Restored the prism / crucible boundary by lifting the training pipeline
   (`ingest`, `storage`, `training` modules + `DatasetAgent`,
   `HyperparameterSearchAgent`, `ModelTrainingAgent`, `ModelEvaluationAgent`,
@@ -56,6 +72,15 @@ date: 2026-05-05
   created `kb/Modules/Crucible.md` documenting the training pipeline,
   planned packs, feature flags, continuous-learning position, and
   cross-extension boundary.
+- Prepared the coordinated 2026-05-15 extension release line: Arbiter `2.0.0`,
+  Crucible `0.2.0`, Embassy `1.1.1`, Ferrox `0.6.0`, Manifold `1.1.1`,
+  Mnemos `1.2.0`, Prism `2.0.0`, and Soter `0.2.0`. Release validation ran
+  through format, check, test, lint, build, integration harness, dependency
+  audit, secret scan, and unsafe-boundary scan before tagging.
+- Clarified the native solver assurance milestone across Ferrox and Soter:
+  execution identity recording is complete, while the remaining work is native
+  dependency manifests, Linux/macOS CI, manifest drift checks, and CVC5
+  external-root/auto-download assurance policy.
 
 ## 2026-05-14
 

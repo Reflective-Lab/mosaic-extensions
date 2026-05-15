@@ -20,12 +20,12 @@ cross-cutting.
 | Directory | Owns |
 |---|---|
 | `arbiter-policy/` | Cedar policy gates, delegation checks, and authorization suggestors. |
-| `atelier-showcase/` | Worked examples and showcase material for the platform. |
+| `crucible-models/` | Training pipelines, trained-artifact packs, and classifier suggestors. |
 | `embassy-ports/` | Source-specific connector ports where the external system identity is part of the contract. |
 | `ferrox-solvers/` | Native optimization solvers and solver-backed suggestors. |
 | `manifold-adapters/` | Generic storage, vector, provider, and tool adapters. |
 | `mnemos-knowledge/` | Knowledge, recall, retrieval, storage, and agentic memory suggestors. |
-| `prism-analytics/` | Analytics, ML, feature extraction, inference, training, and monitoring suggestors. |
+| `prism-analytics/` | Closed-form analytics, feature extraction, inference, fuzzy logic, and analytic packs. |
 | `soter-smt/` | SMT-backed safety evidence, CVC5 FFI, and solver suggestors. |
 
 ## Commands

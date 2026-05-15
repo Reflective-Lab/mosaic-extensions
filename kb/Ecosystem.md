@@ -11,9 +11,9 @@ Extensions sit beside Converge, not inside it.
 products / deployments
         |
         v
-extensions and showcase checkouts:
-atelier-showcase, arbiter-policy, embassy-ports, ferrox-solvers,
-manifold-adapters, mnemos-knowledge, prism-analytics
+extensions:
+arbiter-policy, crucible-models, embassy-ports, ferrox-solvers,
+manifold-adapters, mnemos-knowledge, prism-analytics, soter-smt
         |
         v
 converge contracts, kernel, protocol, model, promotion authority
@@ -34,12 +34,13 @@ They own secrets, processes, Docker, cloud topology, and environment selection.
 | Family | Purpose |
 |---|---|
 | Policy | [[Modules/Arbiter]] turns Cedar decisions into Converge-readable gates. |
-| Showcase | `atelier-showcase` collects worked exemplars and cross-platform demos. |
+| Models | [[Modules/Crucible]] owns trained-artifact packs and training pipelines. |
 | Connectors | [[Modules/Embassy]] owns source-shaped ports such as LinkedIn. |
 | Optimization | [[Modules/Ferrox]] owns solver-backed suggestors. |
 | Generic adapters | [[Modules/Manifold]] owns swappable storage, vector, provider, and tool adapters. |
 | Knowledge | [[Modules/Mnemos]] owns recall, memory, retrieval, and knowledge storage. |
-| Analytics | [[Modules/Prism]] owns feature extraction, inference, training, and analytics packs. |
+| Analytics | [[Modules/Prism]] owns feature extraction, closed-form inference, fuzzy logic, and analytics packs. |
+| SMT evidence | [[Modules/Soter]] owns CVC5-backed safety evidence and SMT suggestors. |
 
 ## Why This Shape
 
