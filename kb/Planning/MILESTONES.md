@@ -27,6 +27,42 @@ backlog.** Missing types, missing test harnesses, missing trace fields,
 and missing trait methods that show up while wiring `arbiter` + `prism`
 are the work. Architectural symmetry is not a reason to build.
 
+## Completed 2026-05-15
+
+- **Restored the prism / crucible boundary.** Training pipeline
+  (`ingest`, `storage`, `training` modules + `DatasetAgent` through
+  `SampleInferenceAgent`) lifted out of `prism-analytics` and into
+  `crucible-models`. Prism is back to closed-form inference only.
+  BREAKING for prism's training-pipeline consumers (one-line import
+  path change); prism's CHANGELOG documents the removal.
+- **Activated crucible as a fact-emitting extension.** First two
+  classifier packs ship: `RandomForestModel` (real bagging-of-CART via
+  `linfa_trees::DecisionTree`) and `DecisionTreeClassifier` (single
+  CART). `ClassifierModel` trait, generic `ClassifierSuggestor<M>` with
+  type aliases for both packs, typed `ClassificationFeaturesPayload` /
+  `ClassPredictionPayload`, a synthetic loan-default fixture, and a
+  `train_loan_default` CLI binary that runs the full training pipeline
+  to a versioned artifact.
+- **Recorded the backend-library decision.** Burn stays reserved for
+  ANFIS (the only differentiable pack); linfa handles tree ensembles,
+  CART, and SVMs. ADR at
+  `crucible-models/kb/Architecture/Backend Library Choices.md`.
+- **Extended the integration harness** with
+  `tests/crucible_loan_classifier.rs` — three tests proving the full
+  Convergence-Engine pipeline from synthetic dataset to typed
+  prediction with crucible-family provenance.
+- **Wrote the crucible capability roadmap**
+  (`crucible-models/kb/Planning/Capability Roadmap.md`) covering
+  gradient-boosted classifiers, regression (new `RegressorModel`
+  trait), clustering (new `ClusteringModel` trait), ANFIS, and kernel
+  SVMs. Each lands when an app pulls.
+- **Hardened the typed-payload boundary** across Arbiter, Soter,
+  Ferrox, Prism, Mnemos, Crucible, and the integration harness.
+  Proposals construct `FactPayload` implementations; the
+  `String`-content escape hatch is reserved for wire / replay borders.
+  Planning doc at
+  `kb/Planning/Typed Payload Boundaries.md`.
+
 ## Completed 2026-05-14
 
 - Added `soter-smt` as the SMT-backed safety evidence extension with CVC5 FFI
