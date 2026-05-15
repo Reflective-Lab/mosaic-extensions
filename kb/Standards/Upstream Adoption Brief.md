@@ -68,15 +68,26 @@ fn provenance(&self) -> &'static str { ORGANISM_PROVENANCE.as_str() }
 ### 3. Engine middleware in `converge-core::Engine::execute_agents`
 
 Wraps every `Suggestor::execute` call in a uniform
-`suggestor.execute` tracing span with fields:
+`suggestor.execute` tracing span. Field provenance is split into
+two layers:
+
+**Engine-emitted (always present, set by middleware):**
 
 - `suggestor` — `Suggestor::name()`
 - `provenance` — `Suggestor::provenance()`
-- `dependencies` — `Suggestor::dependencies()`
 
-No more per-crate `<crate>.suggestor.execute` helpers. The engine
-emits the canonical span exactly once per Suggestor call. Filter
-log queries by the `provenance` field, not by span name prefix.
+**Extension-emitted (added by the suggestor inside its span):**
+
+- `input_key` — primary context key consumed
+- `output_key` — primary context key emitted
+- `input_count` — number of input facts considered
+
+This split is canonical. The full required-field list lives in
+`kb/Standards/Suggestor Contract.md` ("Tracing"); the brief only
+names the engine-emitted half. No more per-crate
+`<crate>.suggestor.execute` helpers. The engine emits the canonical
+span exactly once per Suggestor call. Filter log queries by the
+`provenance` field, not by span name prefix.
 
 ### 4. `ExecutionIdentity` (already shipped, now broadly adopted)
 

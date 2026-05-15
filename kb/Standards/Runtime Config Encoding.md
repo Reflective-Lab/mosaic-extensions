@@ -14,10 +14,14 @@ parsing per-crate folklore.
 
 ## Format
 
-JSON serialization of the typed config struct:
+JSON serialization of the typed config struct, via the canonical
+helper on `ExecutionIdentity`:
 
 ```rust
-let runtime_config = serde_json::to_string(&typed_config).unwrap_or_default();
+let runtime_config = ExecutionIdentity::runtime_config_from_typed(&typed_config);
+// or, builder-style on an existing identity:
+let identity = ExecutionIdentity::non_native(/* ... */)
+    .with_runtime_config_typed(&typed_config);
 ```
 
 - `typed_config` is the crate's own `Config` struct (e.g.
@@ -25,6 +29,15 @@ let runtime_config = serde_json::to_string(&typed_config).unwrap_or_default();
 - The struct derives `Serialize` via `serde`.
 - JSON keys are the struct field names; values are the field
   values.
+- The helper panics if `T`'s `Serialize` impl is malformed
+  (non-finite floats, non-string map keys); for all workspace
+  config structs this is unreachable. A panic here means the
+  caller's config struct is broken — fix that, do not paper over
+  with `unwrap_or_default()`.
+
+Direct `serde_json::to_string(&typed_config).unwrap_or_default()` is
+deprecated: it silently masks bugs in `Serialize` impls. Use the
+canonical helper.
 
 ## Why JSON
 

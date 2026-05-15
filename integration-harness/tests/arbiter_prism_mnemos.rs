@@ -182,12 +182,24 @@ async fn golden_flow_uses_recall_and_fuzzy_risk_before_cedar_gate() {
     assert!(result.converged);
 
     let hypotheses = result.context.get(ContextKey::Hypotheses);
+    let knowledge_hit = hypotheses
+        .iter()
+        .filter_map(|fact| fact.payload::<KnowledgeHitPayload>())
+        .find(|payload| payload.content.contains("High value expense commits"))
+        .expect("Mnemos should retrieve the policy fixture");
+
+    let identity = &knowledge_hit.execution_identity;
+    assert_eq!(
+        identity.producer.name, "converge-mnemos-knowledge",
+        "execution_identity producer should be the mnemos crate"
+    );
+    assert_eq!(
+        identity.backend, "mnemos-knowledge-base-v1",
+        "Mnemos backend should track the workspace's knowledge-base pin"
+    );
     assert!(
-        hypotheses
-            .iter()
-            .filter_map(|fact| fact.payload::<KnowledgeHitPayload>())
-            .any(|payload| payload.content.contains("High value expense commits")),
-        "Mnemos should retrieve the policy fixture"
+        !identity.runtime_config.is_empty(),
+        "runtime config should carry the serialized query parameters"
     );
 
     let strategies = result.context.get(ContextKey::Strategies);

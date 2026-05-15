@@ -72,21 +72,23 @@ Requirements for external I/O:
 
 ## Tracing
 
-Every suggestor boundary should create a structured tracing span named:
+The engine middleware emits the canonical span name `suggestor.execute`
+once per `Suggestor::execute` call. Field ownership is split:
 
-```text
-<extension>.suggestor.execute
-```
+**Engine-emitted (always present):**
 
-Required fields:
+- `provenance` — from `Suggestor::provenance()`
+- `suggestor` — from `Suggestor::name()`
 
-- `provenance`
-- `suggestor`
-- `input_key`
-- `output_key`
-- `input_count`
+**Extension-emitted (added by the suggestor body):**
 
-Async suggestors that await while inside the span should use
+- `input_key` — primary context key consumed
+- `output_key` — primary context key emitted
+- `input_count` — number of input facts considered
+
+Per-crate `<extension>.suggestor.execute` spans are deprecated; rely on
+the engine's canonical span and add the extension-emitted fields inside
+it. Async suggestors that await while inside the span should use
 `tracing::Instrument` rather than holding a non-`Send` entered span guard
 across `.await`.
 
@@ -123,6 +125,27 @@ If a suggestor needs a new universal contract to behave safely, promote the
 contract upstream only after a second extension family or app needs it. Until
 then, keep implementation-local helper types inside the extension that uses
 them.
+
+## Trait Stability Policy
+
+The `Suggestor` trait is a load-bearing contract for every downstream
+extension. The following rules are non-negotiable:
+
+- **New methods MUST ship with default implementations.** Adding a required
+  method is a breaking change that forces every downstream implementor to
+  update in lockstep. Default impls preserve source compatibility.
+- **Existing method signatures MUST NOT change** within a Converge MAJOR
+  version. Adding parameters, changing return types, or tightening trait
+  bounds breaks every implementor silently or noisily.
+- **Removing a method** (or marking it required after it was defaulted) is
+  reserved for the next MAJOR version and must be staged through a release
+  cycle of `#[deprecated]`.
+- **Sealing the trait** (preventing external impls) is explicitly rejected.
+  The whole mosaic-extensions architecture depends on external crates
+  implementing `Suggestor`.
+
+When in doubt, prefer adding a new free function or a sibling trait over
+extending `Suggestor` itself. The trait surface should grow slowly.
 
 See also: [[Extension Standard]], [[Architecture/Runtime Assembly]],
 [[Architecture/Dependency Rules]]
