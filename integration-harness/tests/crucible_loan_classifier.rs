@@ -112,6 +112,24 @@ async fn classify(features: Vec<f64>, fact_id: &str) -> (usize, Vec<f64>, String
     // `crucible.classification.prediction` payloads.
     let family = evals[0].payload_family().to_string();
 
+    // Audit contract: every Crucible prediction carries an
+    // ExecutionIdentity recording producer + backend + runtime
+    // config. Verified inline so a regression that drops the field
+    // back to the v1 shape fails the test.
+    let identity = pred.execution_identity();
+    assert_eq!(
+        identity.producer.name, "converge-crucible-models",
+        "execution_identity producer should be the crucible crate"
+    );
+    assert_eq!(
+        identity.backend, "linfa-trees-v0.8",
+        "RF backend should track the workspace's linfa-trees pin"
+    );
+    assert!(
+        !identity.runtime_config.is_empty(),
+        "runtime config should carry the serialized RandomForestConfig"
+    );
+
     (
         pred.predicted_class(),
         pred.class_probabilities().to_vec(),
