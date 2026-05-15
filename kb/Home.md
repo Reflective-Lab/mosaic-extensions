@@ -34,11 +34,12 @@ analytics, policy engines, and source-specific connector ports.
 ## Modules
 
 - [[Modules/Arbiter]] - Cedar policy gates and authorization suggestors
+- [[Modules/Crucible]] - training pipeline and trained-artifact packs (RF, SVM, ANFIS, trees)
 - [[Modules/Embassy]] - source-specific connector ports
 - [[Modules/Ferrox]] - OR-Tools and HiGHS solver suggestors
 - [[Modules/Manifold]] - generic provider, storage, and tool adapters
 - [[Modules/Mnemos]] - knowledge, recall, memory, and retrieval suggestors
-- [[Modules/Prism]] - analytics, ML, feature, and training suggestors
+- [[Modules/Prism]] - closed-form analytics, fuzzy inference, and feature extraction
 - [[Modules/Soter]] - SMT-backed safety evidence and CVC5 solver suggestors
 
 ## Building
@@ -62,6 +63,7 @@ analytics, policy engines, and source-specific connector ports.
 
 - [[Planning/MILESTONES]] - integration-driven short and mid-term roadmap
 - [[Planning/Upstream Handoff]] - typed provenance and suggestor tracing tasks for Converge and Organism
+- [[Planning/Typed Payload Boundaries]] - audit and next contract for schema-backed fact-family payloads
 - [[Planning/Next Steps]] - work still needed after extraction
 
 ## Experiments

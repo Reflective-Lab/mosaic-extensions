@@ -19,6 +19,8 @@ proof-assistant tier before a checked-proof app need exists.
 
 - SMT query and report vocabulary.
 - Stable query hashes for replay/audit.
+- Structured solver identity for replay/audit across native CVC5 versions,
+  checkout commits, source modes, configure flags, and runtime query options.
 - SMT statuses: `sat`, `unsat`, `unknown`, `timeout`, `error`.
 - Native CVC5 FFI in `crates/cvc5-sys`.
 - Solver-backed suggestors.

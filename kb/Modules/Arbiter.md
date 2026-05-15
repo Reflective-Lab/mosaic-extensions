@@ -15,6 +15,17 @@ tests, and Cedar Analysis / symbolic compilation before adding a separate
 Lean, Coq, or Agda verifier. Formal proof assistants remain deferred until a
 policy claim cannot be handled by Cedar's own analysis stack.
 
+The current assurance risk is model adequacy: the encoded Cedar claim must
+match the business claim. The first conditional invariant exposes its claim
+policy as a reviewable artifact and carries positive/boundary fixtures plus a
+negative mutant-policy case before solver output is treated as useful evidence.
+
+Real CVC5 is not yet a routinely exercised Arbiter gate. Soter has working
+native CVC5 FFI, and the workspace integration harness can run Arbiter's
+Cedar/SymCC model through Soter CVC5 with the `soter-cvc5` feature. Arbiter's
+own local-`cvc5` smoke tests are implemented but ignored by default and require
+`CVC5` or `cvc5` on `PATH`.
+
 HITL escalation is strict: Arbiter escalates only when Cedar would allow the
 same request with `human_approval_present = true`; otherwise the denial stays a
 reject.
@@ -55,6 +66,8 @@ field.
 - `LocalCvc5AnalysisBackend` under the `analysis` feature
 - `CedarAnalysisInput`, `CedarAnalysisPlan`, and `CedarAnalysisReport` under
   the `analysis` feature
+- `EXPENSE_NON_FINANCE_HIGH_VALUE_COMMIT_CLAIM_POLICY` under the `analysis`
+  feature
 - `RateLimitGateSuggestor`
 - `BudgetGateSuggestor`
 - `ApprovalGateSuggestor`

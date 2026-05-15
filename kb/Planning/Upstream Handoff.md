@@ -3,13 +3,15 @@ tags: [planning, handoff]
 source: mixed
 date: 2026-05-14
 ---
-# Upstream Handoff: Typed Provenance and Suggestor Tracing
+# Upstream Handoff: Typed Provenance, Payloads, and Suggestor Tracing
 
 The eight Mosaic Extensions have converged on two conventions that are
 currently enforced by code review rather than by the Converge foundation
-or the Organism platform. This document collects the upstream work
-needed to lift those conventions into enforced contracts so the next
-extension does not re-invent the pattern.
+or the Organism platform: typed provenance at proposal construction and
+structured suggestor tracing. A third boundary is now visible but not yet
+landed: typed or schema-backed payload contracts for reusable fact families.
+This document collects the upstream work needed to lift these conventions into
+enforced contracts so the next extension does not re-invent the pattern.
 
 See also: [[Standards/Suggestor Contract]], [[Planning/MILESTONES]],
 [[Architecture/Pluralist Reasoning Substrate]].
@@ -41,6 +43,11 @@ Adherence across the five in-scope extensions was confirmed by audit on
 `suggestor_span()` helper function rather than inline
 `tracing::info_span!`. That helper is the prototype of the engine
 middleware described in **Converge task 2** below.
+
+The same audit found that proposal payloads are still only partially typed.
+Most extensions define Rust DTOs internally, but `ProposedFact` stores
+`content: String` and broad `ContextKey`s do not identify which DTO is present.
+See [[Typed Payload Boundaries]] for the payload-contract follow-up.
 
 The Suggestor Contract standard
 (`kb/Standards/Suggestor Contract.md`) records the read/write
@@ -77,6 +84,13 @@ these implementations rely on.
    declared-dependencies, and error-handling rules become platform
    expectations rather than workspace convention.
 
+4. **Add schema-backed fact-family helpers.** Keep `ProposedFact` wire
+   compatibility, but add additive construction/parsing helpers that bind
+   a payload type to a family id, schema version, expected context keys,
+   id prefix, and validator. This should start as an extension-local
+   convention and move upstream only after at least two extension families
+   adopt the same shape.
+
 ## Task → Organism platform
 
 1. Implement the new `Provenance` trait in organism packs (one variant
@@ -96,6 +110,8 @@ these implementations rely on.
 | Extensions drop hand-rolled spans | Mosaic | Converge task 2 |
 | Organism task 1 (trait adoption) | Organism | Converge task 1 |
 | Converge task 3 (contract promotion) | Converge | any time |
+| Payload-family helper prototype | Mosaic | one high-risk family |
+| Converge task 4 (payload helpers) | Converge | adoption by two families |
 | Organism task 3 (contract audit) | Organism | Converge task 3 |
 
 ## Acceptance criteria
@@ -111,6 +127,10 @@ these implementations rely on.
 - **Converge task 3** is done when the upstream
   `kb/Standards/Suggestor Contract.md` exists and Mosaic extensions
   cite the upstream version rather than the workspace copy.
+- **Converge task 4** is done when a Mosaic extension can emit and read a
+  `ProposedFact` through a fact-family contract without manually spelling
+  the id prefix, context keys, schema version, serializer, or validator at
+  every call site.
 
 ## Open questions
 
@@ -121,3 +141,6 @@ these implementations rely on.
   span always-on with the suggestor free to add child spans?
 - Does the `Provenance` trait need a version field for forward
   compatibility, or is `&'static str` stable enough?
+- Should fact-family schemas be Rust-only DTO contracts first, or should
+  Converge also emit JSON Schema artifacts for product fixtures and
+  non-Rust integrations?

@@ -5,17 +5,22 @@ date: 2026-05-05
 ---
 # Prism
 
-`prism` owns analytics and ML pipeline capabilities for Converge agents.
+`prism` owns closed-form analytics and inference for Converge agents.
 
-It implements feature extraction, inference, training, monitoring, and analytic
-pack suggestors on top of Polars and Burn.
+It implements feature extraction, Burn-based inference over feature vectors,
+fuzzy inference (Mamdani / Sugeno / Tsukamoto), and analytic pack suggestors on
+top of Polars. Training-pipeline concerns — dataset loading, train/val split,
+hyperparameter search, model fitting, registry, and deployment — live in
+[[Modules/Crucible]]. The boundary is: prism never fits; crucible never owns
+expert rules. The pipeline was lifted out of prism on 2026-05-14 to restore
+this boundary after implementation had drifted while crucible was a stub.
 
 ## Owns
 
-- Polars-based ingestion and feature extraction.
-- Burn-based inference examples.
-- Training pipeline agents.
-- Analytic pack solvers and input/output types.
+- Polars-based feature extraction and inference.
+- Burn-based inference over pre-fit feature vectors.
+- Fuzzy inference engine (Mamdani / Sugeno / Tsukamoto) and defuzzification.
+- Analytic pack solvers and input/output types for closed-form packs.
 - Compile-fail tests that enforce pack/suggestor authority boundaries.
 - Typed Prism proposal provenance at the `ProposedFact` boundary.
 - `prism.suggestor.execute` tracing spans at analytics suggestor boundaries.
@@ -24,16 +29,6 @@ pack suggestors on top of Polars and Burn.
 
 - `FeatureAgent`
 - `InferenceAgent`
-- `DatasetAgent`
-- `DataValidationAgent`
-- `FeatureEngineeringAgent`
-- `HyperparameterSearchAgent`
-- `ModelTrainingAgent`
-- `ModelEvaluationAgent`
-- `ModelRegistryAgent`
-- `MonitoringAgent`
-- `DeploymentAgent`
-- `SampleInferenceAgent`
 
 ## Packs
 
@@ -63,15 +58,17 @@ See also: [[Architecture/Expert Portfolio Architecture]]
 ## Feature Flags
 
 - Default features are empty.
-- `storage` enables optional `converge-storage` support.
-- `excel` enables optional Excel ingestion through `calamine`.
+- `excel` enables optional Excel ingestion through `calamine` (kept for the
+  feature-extraction path; ingestion of training corpora now lives in
+  [[Modules/Crucible]]).
 
 ## Entry Points
 
 - `prism-analytics/README.md`
 - `prism-analytics/crates/prism/src/lib.rs`
 - `prism-analytics/crates/prism/src/engine.rs`
-- `prism-analytics/crates/prism/src/training.rs`
+- `prism-analytics/crates/prism/src/model.rs`
+- `prism-analytics/crates/prism/src/fuzzy/`
 - `prism-analytics/crates/prism/src/packs/`
 - `prism-analytics/crates/prism/tests/`
 

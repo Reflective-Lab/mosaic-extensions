@@ -24,6 +24,9 @@ the same convergence run.
 - Optional gRPC solver service.
 - Typed Ferrox proposal provenance at the `ProposedFact` boundary.
 - `ferrox.suggestor.execute` tracing spans at solver suggestor boundaries.
+- Structured solver identity on solver outputs, including native backend,
+  version, expected/actual checkout commit, source mode, build flags, runtime
+  config, and Rust crate version.
 
 ## Current Crates
 

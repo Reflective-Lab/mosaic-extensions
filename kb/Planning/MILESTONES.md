@@ -61,6 +61,26 @@ are the work. Architectural symmetry is not a reason to build.
 
 ## Short-term (2-6 weeks)
 
+- Prototype a schema-backed fact-family boundary for one high-risk path,
+  likely Arbiter Cedar Analysis or Soter SMT reports. The goal is not a
+  generic fact registry; it is to remove raw payload assumptions from one
+  product-relevant promotion path. See [[Typed Payload Boundaries]].
+- Native solver assurance hardening for `ferrox-solvers` and `soter-smt`.
+  Solver behavior is now safer, but audit confidence still depends on knowing
+  which native bits were built, linked, and run. Deliverables, in order:
+  1. Add a checked-in native dependency lock/audit manifest for OR-Tools,
+     HiGHS, and CVC5 covering name, version, source URL, expected checkout
+     commit, build flags, and available artifact/header/library fingerprints.
+  2. Add a Linux + macOS CI matrix for Ferrox full-feature checks/tests,
+     Soter CVC5-feature checks/tests, and clippy. CI must fail when a native
+     checkout commit differs from the manifest.
+  3. Tighten `SOTER_CVC5_ROOT` policy so assurance CI either rejects external
+     roots or requires an explicit trusted-external-root mode that records and
+     version-checks the linked CVC5.
+  4. Disable or isolate CVC5 auto-download in assurance CI. Local convenience
+     fetches remain acceptable only outside the assurance lane.
+  5. Record native solver identity in Ferrox/Soter evidence so later audit can
+     distinguish the same query solved by a different native binary or config.
 - Extend the golden harness only when a second app-level path pulls on it.
   Keep it product-side and avoid turning it into a shared framework.
 

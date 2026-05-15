@@ -55,6 +55,7 @@ Curated catalog for the Converge extensions workspace.
 ## Modules
 
 - [Arbiter](Modules/Arbiter.md)
+- [Crucible](Modules/Crucible.md)
 - [Embassy](Modules/Embassy.md)
 - [Ferrox](Modules/Ferrox.md)
 - [Manifold](Modules/Manifold.md)

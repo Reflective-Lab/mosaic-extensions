@@ -31,6 +31,11 @@ convergence kernel, or bypass policy gates.
 - Suggestors emit proposed facts or proposed plans through `AgentEffect`.
 - Proposed facts must carry typed extension-local provenance before crossing
   into the current string-backed `ProposedFact` contract.
+- Reusable or high-risk proposed fact families should expose a typed or
+  schema-backed payload boundary: expected context key, id prefix, payload
+  DTO, version, and validator. A broad `ContextKey` plus arbitrary JSON is
+  acceptable for diagnostics and notes, but not for facts used as promotion,
+  policy, solver, or CI evidence.
 - Confidence values are advisory. They are not proof and are not promotion.
 - Formal verification, solver execution, Cedar decisions, analytics signals,
   and knowledge recall must remain distinguishable in emitted content and

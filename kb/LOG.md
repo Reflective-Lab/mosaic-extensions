@@ -40,6 +40,23 @@ date: 2026-05-05
   and optimization in `ferrox`, memory and recall in `mnemos`, and defer a
   standalone fuzzy extension until a real DSL/runtime boundary exists.
 
+## 2026-05-15
+
+- Restored the prism / crucible boundary by lifting the training pipeline
+  (`ingest`, `storage`, `training` modules + `DatasetAgent`,
+  `HyperparameterSearchAgent`, `ModelTrainingAgent`, `ModelEvaluationAgent`,
+  `ModelRegistryAgent`, `MonitoringAgent`, `DeploymentAgent`,
+  `SampleInferenceAgent`, plus the supporting types) out of `prism-analytics`
+  and into `crucible-models`. Prism is back to closed-form inference only.
+  `reqwest`, `bincode`, and `converge-storage` deps dropped from prism along
+  with the `storage` feature. Crucible gained typed `ProvenanceSource::Crucible`
+  and `crucible.suggestor.execute` spans matching the workspace Suggestor
+  Contract. BREAKING change at the prism crate boundary.
+- Updated `kb/Modules/Prism.md` to reflect the closed-form-only surface;
+  created `kb/Modules/Crucible.md` documenting the training pipeline,
+  planned packs, feature flags, continuous-learning position, and
+  cross-extension boundary.
+
 ## 2026-05-14
 
 - Added `soter-smt` as the SMT-backed safety evidence extension home, including
@@ -49,6 +66,12 @@ date: 2026-05-05
   `CedarAnalysisSuggestor` through Cedar/SymCC generated SMT into Soter's CVC5
   FFI backend. This keeps Arbiter as the Cedar policy owner and Soter as the
   SMT execution owner.
+- Recorded the Arbiter model-adequacy boundary: the first conditional Cedar
+  claim now has review fixtures, boundary cases, and a mutant-policy negative
+  case before solver output is trusted as useful evidence.
+- Clarified that real CVC5 is exercised through Soter and the integration
+  harness today; Arbiter's own local-`cvc5` smoke tests are implemented but
+  still need a scheduled/manual CI gate with `CVC5` or `cvc5` on `PATH`.
 - Added `kb/Architecture/Pluralist Reasoning Substrate.md` — long-form essay
   walking the eight extensions with mathematical grounding (Zadeh, Mamdani,
   Sugeno, Tsukamoto, Cortes–Vapnik, Breiman, Freund–Schapire, Jang, Finn,
@@ -62,6 +85,11 @@ date: 2026-05-05
   `kb/Planning/Upstream Handoff.md` recording the three Converge and three
   Organism platform tasks needed to lift these conventions from
   code-review-enforced to platform-enforced contracts.
+- Audited the `ProposedFact` payload boundary and recorded that typed
+  provenance is only partial type safety: payloads still cross Converge as
+  `String` content under broad `ContextKey`s. Added
+  `kb/Planning/Typed Payload Boundaries.md` and updated the Suggestor
+  Contract and upstream handoff with the next schema-backed fact-family bar.
 
 ## 2026-05-13
 
