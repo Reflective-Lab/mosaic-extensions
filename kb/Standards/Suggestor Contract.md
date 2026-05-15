@@ -31,6 +31,14 @@ convergence kernel, or bypass policy gates.
 - Suggestors emit proposed facts or proposed plans through `AgentEffect`.
 - Proposed facts must carry typed extension-local provenance before crossing
   into the current string-backed `ProposedFact` contract.
+- The Suggestor must override `Suggestor::provenance()` to return its
+  crate's canonical `*_PROVENANCE.as_str()`. The engine middleware emits
+  a uniform `suggestor.execute` span carrying that string in the
+  `provenance` field. **An empty `provenance()` on a Suggestor that
+  emits proposals is a contract violation** — log-query auditors should
+  flag any `suggestor.execute` span with `provenance=""` that produced
+  proposals. Filter / observer Suggestors that never emit proposals are
+  the only legitimate consumers of the default empty `provenance()`.
 - Reusable or high-risk proposed fact families should expose a typed or
   schema-backed payload boundary: expected context key, id prefix, payload
   DTO, version, and validator. A broad `ContextKey` plus arbitrary JSON is
