@@ -197,9 +197,21 @@ async fn golden_flow_uses_recall_and_fuzzy_risk_before_cedar_gate() {
         identity.backend, "mnemos-knowledge-base-v1",
         "Mnemos backend should track the workspace's knowledge-base pin"
     );
-    assert!(
-        !identity.runtime_config.is_empty(),
-        "runtime config should carry the serialized query parameters"
+    // Replay must be able to reconstruct WHICH query and HOW MANY hits were
+    // requested — those are the variables that change retrieval output.
+    // Asserting only `!is_empty()` would silently pass through any change
+    // that drops the query text (e.g. privacy redaction) or the cutoff.
+    let rc: serde_json::Value = serde_json::from_str(&identity.runtime_config)
+        .expect("runtime_config must be valid JSON per the Runtime Config Encoding standard");
+    assert_eq!(
+        rc.get("query").and_then(serde_json::Value::as_str),
+        Some(recall_query),
+        "runtime_config.query must record the actual query string used for retrieval"
+    );
+    assert_eq!(
+        rc.get("max_results").and_then(serde_json::Value::as_u64),
+        Some(1),
+        "runtime_config.max_results must record the cutoff (set via `with_max_results(1)` above)"
     );
 
     let strategies = result.context.get(ContextKey::Strategies);

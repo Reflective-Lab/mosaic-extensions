@@ -125,9 +125,26 @@ async fn classify(features: Vec<f64>, fact_id: &str) -> (usize, Vec<f64>, String
         identity.backend, "linfa-trees-v0.8",
         "RF backend should track the workspace's linfa-trees pin"
     );
-    assert!(
-        !identity.runtime_config.is_empty(),
-        "runtime config should carry the serialized RandomForestConfig"
+    // Replay must be able to reconstruct the trained model's hyperparameters
+    // from runtime_config alone — otherwise a prediction that disagrees with
+    // a re-run cannot be debugged. Round-trip each hyperparameter through the
+    // JSON encoding the standard mandates.
+    let rc: serde_json::Value = serde_json::from_str(&identity.runtime_config)
+        .expect("runtime_config must be valid JSON per the Runtime Config Encoding standard");
+    assert_eq!(
+        rc.get("n_trees").and_then(serde_json::Value::as_u64),
+        Some(25),
+        "runtime_config.n_trees must record the forest size used for this prediction"
+    );
+    assert_eq!(
+        rc.get("max_depth").and_then(serde_json::Value::as_u64),
+        Some(6),
+        "runtime_config.max_depth must record the depth cap used during training"
+    );
+    assert_eq!(
+        rc.get("random_seed").and_then(serde_json::Value::as_u64),
+        Some(TRAIN_SEED),
+        "runtime_config.random_seed must record the seed so replay is deterministic"
     );
 
     (
