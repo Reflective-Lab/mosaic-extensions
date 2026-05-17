@@ -1599,7 +1599,7 @@ checksum = "136d3e02915a2cea4d74caa8681e2d44b1c3254bdbf17d11d41d587ff858832c"
 
 [[package]]
 name = "converge-arbiter-policy"
-version = "2.0.0"
+version = "2.0.1"
 dependencies = [
  "async-trait",
  "axum 0.8.9",
@@ -1621,9 +1621,9 @@ dependencies = [
 
 [[package]]
 name = "converge-core"
-version = "3.9.0"
+version = "3.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dfaf3f493217aef11c7ac0f4accfe60f1bb6d875e518b859b4cbc46a90c9082e"
+checksum = "090b97037362a6e0dd96970de379483e8b770b519be8bb3aa25905f487fa8e3a"
 dependencies = [
  "async-trait",
  "converge-pack",
@@ -1640,7 +1640,7 @@ dependencies = [
 
 [[package]]
 name = "converge-crucible-models"
-version = "0.2.1"
+version = "0.3.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1664,9 +1664,9 @@ dependencies = [
 
 [[package]]
 name = "converge-kernel"
-version = "3.9.0"
+version = "3.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c9ad0fdc1f3692d15b4ce6f0376d5ccc38ffb8c1c63bb896eae059908ae93239"
+checksum = "1dfb119da8a6481c1304be3ff32927807f1a3e0692e2c2d7bfffd543e2e2204c"
 dependencies = [
  "async-trait",
  "converge-core",
@@ -1709,9 +1709,9 @@ dependencies = [
 
 [[package]]
 name = "converge-model"
-version = "3.9.0"
+version = "3.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8dad9485614497ea106299b9130eac538b997c1ee665e9cc68405f7678c67eb6"
+checksum = "1b63b3e65902cb2a1b8c4e6928ec2937959b6f7a11d09e5f0f03ec1b261b538a"
 dependencies = [
  "converge-core",
  "converge-pack",
@@ -1721,9 +1721,9 @@ dependencies = [
 
 [[package]]
 name = "converge-optimization"
-version = "3.9.0"
+version = "3.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3fbb4be39d347bc70a54d786ceeeead502f7cf16b10b249b42a2587cc8cb0756"
+checksum = "8223cf9e43f885dd4f024e8ef620affbb65d9fc89157add483a9e8a3919adb62"
 dependencies = [
  "async-trait",
  "bitvec",
@@ -1744,9 +1744,9 @@ dependencies = [
 
 [[package]]
 name = "converge-pack"
-version = "3.9.0"
+version = "3.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "54991908be2931ceee38bbbe27df06c18b936830b99b5106154ce98ed5c37c0f"
+checksum = "497b800b3e4d9e744fabdc2663b28b3af6c87f0fb23d0045f18333bdcc233444"
 dependencies = [
  "async-trait",
  "hex",
@@ -1777,9 +1777,9 @@ dependencies = [
 
 [[package]]
 name = "converge-provider"
-version = "3.9.0"
+version = "3.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9b0aee574a11549517ad43c9cb1e7f744ee97cbaac4f4adcf9563370751242eb"
+checksum = "721f145273c0d7f41788632cf0081214c4f2b820dd63480ca61b0e3d8d105023"
 dependencies = [
  "serde",
  "serde_json",
