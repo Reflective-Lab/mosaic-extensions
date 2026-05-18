@@ -5,6 +5,17 @@ date: 2026-05-05
 ---
 # KB Mutation Log
 
+## 2026-05-18
+
+- Completed a four-tier workspace code quality sweep across all 8 extension families.
+- Created `REVIEW-GUIDE.md` at workspace root; wired into `AGENTS.md`, `README.md`, and `kb/Standards/Review Guide.md`.
+- Tier 1: eliminated all `partial_cmp().unwrap()` panic sites, replaced `DefaultHasher` with SHA-256, moved regex to `LazyLock`, made three manifold constructors fallible.
+- Tier 2: status strings → typed enums in ferrox (7 solve-status types); path strings → `PathBuf` in crucible training structs; sanctions types centralised in `embassy-pack`; `MembershipDegree` newtype in prism fuzzy engine.
+- Tier 3: domain primitives in arbiter (`primitives.rs`), prism (`primitives.rs`), ferrox (`domain_types.rs`); format validation on 10 embassy skeleton identifier types; SAFETY comments on all 69 unsafe blocks in highs-sys and ortools-sys.
+- Tier 4: `training.rs` (2268 lines) split into 7-module directory in crucible; cosine similarity deduplicated into `mnemos::math`; `simple_id!` macro added to embassy-pack replacing boilerplate in 10 crates; exponential backoff deduplicated into `manifold::llm::retry` across 6 LLM backends.
+- Updated `kb/Modules/Embassy.md` Current Crates table to reflect all 23 crates (pack, 12 P0 ports, 10 skeleton ports).
+- Added Shared Infrastructure section to root `AGENTS.md` listing new shared modules to prevent future duplication.
+
 ## 2026-05-17
 
 - Refreshed the workspace entrypoints around the canonical checkout at

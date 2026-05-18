@@ -32,10 +32,47 @@ Reflective Labs, customers, partners, or product domains.
 
 ## Current Crates
 
-| Crate | Role |
+### Shared infrastructure
+
+| Crate | Provides |
 |---|---|
-| `embassy-pack` | Shared `CallContext`, `Observation<T>`, and `content_hash` helper. |
-| `embassy-linkedin` | `LinkedInProvider`, `LinkedInGetRequest`, `LinkedInProfile`, `LinkedInGetResponse`, and `StubLinkedInProvider`. |
+| `embassy-pack` | `CallContext`, `Observation<T>`, `content_hash`; `SanctionsSubject`, `SanctionsHit`, `MatchType`, `SubjectType` (shared across sanctions ports); `simple_id!` macro for identifier newtypes. |
+
+### P0 ports — fully shaped, live on crates.io
+
+| Crate | Source |
+|---|---|
+| `embassy-linkedin` | LinkedIn professional profile lookup. |
+| `embassy-sec-edgar` | SEC EDGAR company filings (US public companies). |
+| `embassy-bolagsverket` | Bolagsverket Swedish company registry. |
+| `embassy-gleif` | GLEIF LEI entity data (legal entity identifiers). |
+| `embassy-vies` | EU VAT Information Exchange System (VAT number validation). |
+| `embassy-ofac-sls` | US Treasury OFAC Specially Designated Nationals sanctions list. |
+| `embassy-eu-sanctions` | EU Consolidated Sanctions List. |
+| `embassy-commerce-csl` | US Commerce BIS Denied Parties / Entity List. |
+| `embassy-sam-gov` | SAM.gov federal contractor and grantee registry. |
+| `embassy-usaspending` | USASpending.gov federal spend data. |
+| `embassy-ted` | TED EU public procurement notices. |
+| `embassy-skatteverket` | Skatteverket Swedish tax public query surface. |
+
+### Skeleton ports — typed identifier + stub provider
+
+Expand each when an app pulls on the domain. Do not grow the entity shape preemptively.
+
+| Crate | Identifier type |
+|---|---|
+| `embassy-uspto` | `PatentNumber` |
+| `embassy-crunchbase` | `OrganizationId` |
+| `embassy-github` | `OrgSlug` |
+| `embassy-pubmed` | `Pmid` |
+| `embassy-arxiv` | `ArxivId` |
+| `embassy-openalex` | `OpenAlexId` |
+| `embassy-wikidata` | `QId` |
+| `embassy-companies-house` | `CompanyNumber` |
+| `embassy-scb` | `TableId` |
+| `embassy-epo` | `EpoNumber` |
+
+All skeleton identifier types are generated with the `embassy_pack::simple_id!` macro and include format validation. Use `parse()` at the boundary; do not accept raw strings into port logic.
 
 ## Boundary
 

@@ -59,6 +59,21 @@ quality standards for this workspace: strong types over strings, no anonymous nu
 primitives, Converge compliance, production panic safety, and the reference
 implementations to copy.
 
+## Shared Infrastructure
+
+Before adding a helper, check whether it already exists in the shared modules below.
+Do not reinvent these.
+
+| Location | What it provides |
+|---|---|
+| `embassy_pack::simple_id!` | Declarative macro — generates a newtype with `parse()`, `as_str()`, `Display`, `serde(transparent)`. Use for any source-specific identifier. |
+| `embassy_pack::{SanctionsSubject, SanctionsHit, MatchType, SubjectType}` | Shared sanctions types. All sanctions ports (ofac-sls, eu-sanctions, commerce-csl) re-export from here. |
+| `ferrox::domain_types::*` | `NodeId`, `Minutes`, `TaskId`, `AgentId`, `MachineId`, `JobId`, `ProcessingTime` — typed domain primitives for solver problem structs. |
+| `arbiter::primitives::*` | `Confidence`, `CostUsd`, `ProposalCount`, `ProposalLimit`, `EpochSeconds` — constrained primitives for policy payload structs. |
+| `prism::primitives::*` | `UnitFraction` [0,1], `ZScoreThreshold` >0 (both with `Deserialize` enforcement), re-exported `NonZeroUsize`. |
+| `mnemos::math::cosine_similarity` | Canonical `cosine_similarity(a: &[f32], b: &[f32]) -> f32`. The only cosine implementation in mnemos. |
+| `manifold::llm::retry` | `retry_with_backoff(max_retries, closure)` — shared exponential backoff (100ms × 2^attempt) used by all 6 LLM backends. |
+
 ## Rules
 
 - Dependencies flow one way: `converge contracts <- extensions <- products`.
