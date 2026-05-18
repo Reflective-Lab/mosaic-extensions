@@ -16,7 +16,7 @@ choosing the extension you are touching.
 4. Check status inside the target extension repo.
 
 ```bash
-git -C /Users/kpernyer/dev/extensions/<extension-dir> status --short --branch
+git -C /Users/kpernyer/dev/reflective/stack/mosaic-extensions/<extension-dir> status --short --branch
 ```
 
 If the target folder is not a git repo yet, decide whether it should be

@@ -5,9 +5,23 @@ date: 2026-05-05
 ---
 # KB Mutation Log
 
+## 2026-05-17
+
+- Refreshed the workspace entrypoints around the canonical checkout at
+  `/Users/kpernyer/dev/reflective/stack/mosaic-extensions`.
+- Added a root `README.md` so the Mosaic container has the same story-bearing
+  entrypoint as the extension repos it contains.
+- Clarified Embassy as an evidence-oriented source-specific connector family,
+  not a home for Reflective or customer operating authority.
+- Updated the port/provider boundary to route billing, entitlements, partner
+  payouts, customer writeback, signing, payroll, escrow release, and other
+  consequential commands to the owning business layer.
+- Updated runtime assembly guidance so Reflective Commerce Rails and customer
+  business systems assemble Mosaic specialists without living inside Mosaic.
+
 ## 2026-05-05
 
-- Created the extensions KB for `/Users/kpernyer/dev/extensions`.
+- Created the extensions KB for `/Users/kpernyer/dev/reflective/stack/mosaic-extensions`.
 - Seeded architecture pages from the Converge and Organism KB boundary docs.
 - Seeded module pages from each local README, Cargo manifest, and public API surface.
 - Recorded extraction status, known version drift, and follow-up work.

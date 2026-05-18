@@ -3,10 +3,11 @@ tags: [moc]
 source: mixed
 date: 2026-05-05
 ---
-# Converge Extensions
+# Mosaic Extensions
 
-Knowledge base for `/Users/kpernyer/dev/extensions`, the reusable extension
-home for Converge-adjacent capabilities.
+Knowledge base for
+`/Users/kpernyer/dev/reflective/stack/mosaic-extensions`, the reusable
+extension home for Converge-adjacent Mosaic capabilities.
 
 This workspace exists to make Converge right-shaped: Converge keeps the
 universal contracts, engine, promotion authority, and semantic model; extension
@@ -58,6 +59,7 @@ analytics, policy engines, and source-specific connector ports.
 
 - [[Standards/Extension Standard]] - minimum shape for new extension repos and crates
 - [[Standards/Suggestor Contract]] - rules for extension suggestor behavior
+- [[Standards/Review Guide]] - code quality standards: type smells, Converge compliance, reference implementations
 
 ## Planning
 

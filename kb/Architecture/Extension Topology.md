@@ -5,8 +5,8 @@ date: 2026-05-05
 ---
 # Extension Topology
 
-`/Users/kpernyer/dev/extensions` is the canonical home for reusable Converge
-extensions.
+`/Users/kpernyer/dev/reflective/stack/mosaic-extensions` is the canonical home
+for reusable Mosaic extensions.
 
 The dependency rule is one-way:
 

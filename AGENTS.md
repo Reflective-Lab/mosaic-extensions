@@ -1,16 +1,19 @@
 # Converge Extensions Workspace
 
-This is the canonical agent entrypoint for `/Users/kpernyer/dev/extensions`.
+This is the canonical agent entrypoint for
+`/Users/kpernyer/dev/reflective/stack/mosaic-extensions`.
 
-This directory is a multi-repo container for reusable Converge extensions. It
-is not a single Cargo workspace and it is not itself the Converge foundation.
+This directory is a multi-repo container for reusable Mosaic extension
+families. It is not a single Cargo workspace and it is not itself the Converge
+foundation.
 
 ## Start Here
 
-1. Read `kb/Home.md`.
-2. Follow one relevant KB link, usually `kb/Architecture/Extension Topology.md`.
-3. Enter the specific extension directory before running Cargo commands.
-4. Read that extension's `AGENTS.md`, `README.md`, and `Cargo.toml`.
+1. Read `README.md`.
+2. Read `kb/Home.md`.
+3. Follow one relevant KB link, usually `kb/Architecture/Extension Topology.md`.
+4. Enter the specific extension directory before running Cargo commands.
+5. Read that extension's `AGENTS.md`, `README.md`, and `Cargo.toml`.
 
 Do not bulk-read the entire KB or every extension unless the task is explicitly
 cross-cutting.
@@ -48,6 +51,13 @@ just check
 just test
 just lint
 ```
+
+## Code Quality
+
+Read `REVIEW-GUIDE.md` before reviewing or writing extension code. It defines the
+quality standards for this workspace: strong types over strings, no anonymous numeric
+primitives, Converge compliance, production panic safety, and the reference
+implementations to copy.
 
 ## Rules
 

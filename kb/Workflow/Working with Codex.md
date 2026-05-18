@@ -21,7 +21,7 @@ Do not bulk-read every extension unless the task is explicitly cross-cutting.
 Run status inside the target extension:
 
 ```bash
-git -C /Users/kpernyer/dev/extensions/<extension-dir> status --short --branch
+git -C /Users/kpernyer/dev/reflective/stack/mosaic-extensions/<extension-dir> status --short --branch
 ```
 
 If there are local changes, preserve them unless the user explicitly asks to

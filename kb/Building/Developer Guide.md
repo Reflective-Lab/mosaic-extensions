@@ -6,11 +6,11 @@ date: 2026-05-06
 # Developer Guide for Converge Extensions
 
 This guide is the practical entry point for developers working in
-`/Users/kpernyer/dev/extensions`, the reusable extension home for
+`/Users/kpernyer/dev/reflective/stack/mosaic-extensions`, the reusable extension home for
 Converge-adjacent capabilities.
 
 It is adapted from the Converge 3.8.1 developer guide at
-`/Users/kpernyer/dev/work/converge/kb/Building/Developer Guide.md`, but this
+`/Users/kpernyer/dev/reflective/stack/bedrock-platform/converge/kb/Building/Developer Guide.md`, but this
 page is for extension repositories. The parent folder is a multi-repo
 container, not a Cargo workspace and not the Converge foundation.
 
@@ -23,8 +23,8 @@ and showcase examples.
 
 | Item | Value |
 |---|---|
-| Workspace container | `/Users/kpernyer/dev/extensions` |
-| Foundation checkout | `/Users/kpernyer/dev/work/converge` |
+| Workspace container | `/Users/kpernyer/dev/reflective/stack/mosaic-extensions` |
+| Foundation checkout | `/Users/kpernyer/dev/reflective/stack/bedrock-platform/converge` |
 | Converge contract baseline | `3.8.1` |
 | Rust edition | 2024 |
 | MSRV | 1.94.0 |
@@ -40,14 +40,14 @@ Start with [[Home]], [[Architecture/Extension Topology]], and
 From the container:
 
 ```bash
-cd /Users/kpernyer/dev/extensions
+cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions
 just status
 ```
 
 Then enter the specific extension repository:
 
 ```bash
-cd /Users/kpernyer/dev/extensions/<extension-dir>
+cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/<extension-dir>
 cat AGENTS.md
 cat README.md
 cat Cargo.toml
@@ -161,7 +161,7 @@ just lint manifold-adapters
 Focused work should normally run inside one extension:
 
 ```bash
-cd /Users/kpernyer/dev/extensions/prism-analytics
+cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/prism-analytics
 just check
 just test
 just lint
@@ -466,13 +466,13 @@ Use the existing repo style first. Across extension repos:
 
 ## Git Model
 
-There is no root git repository at `/Users/kpernyer/dev/extensions`. Each
+There is no root git repository at `/Users/kpernyer/dev/reflective/stack/mosaic-extensions`. Each
 extension directory is independent.
 
 Before editing an extension:
 
 ```bash
-git -C /Users/kpernyer/dev/extensions/<extension-dir> status --short --branch
+git -C /Users/kpernyer/dev/reflective/stack/mosaic-extensions/<extension-dir> status --short --branch
 ```
 
 Keep topic branches scoped to one extension unless the work is a deliberate

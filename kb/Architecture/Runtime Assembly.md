@@ -21,6 +21,10 @@ running system. They own:
 - product-specific routing,
 - environment-specific defaults.
 
+Business operating rails also live above extensions. Reflective-owned commerce
+systems, customer-owned writeback surfaces, and product-domain command
+contracts assemble Mosaic specialists but do not live in Mosaic.
+
 ## What Extensions Expose
 
 Extensions should expose clean library surfaces:
@@ -33,6 +37,12 @@ Extensions should expose clean library surfaces:
 Suggestors must stay advisory: they read declared context, emit proposals, and
 leave promotion to Converge. See [[Standards/Suggestor Contract]] for the
 extension-side execution contract.
+
+Connectors must also stay below operating authority. An Embassy port can say
+what SEC EDGAR, Bolagsverket, or LinkedIn reported. It does not decide to
+charge a customer, grant an entitlement, advance an opportunity, release a
+payout, or write back into a customer system. Those decisions belong in the
+business layer that bears the consequence.
 
 ## Current Examples
 
