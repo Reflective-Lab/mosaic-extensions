@@ -89,10 +89,23 @@ implementation and policy suggestor family.
 Do not move product-specific policy bundles into Converge. Keep reusable
 authorization mechanics here, and let products choose the policies they run.
 
+## Domain Primitives
+
+`crates/arbiter/src/primitives.rs` — constrained types used across payload structs. Do not substitute raw floats or integers.
+
+| Type | Constraint | Used in |
+|---|---|---|
+| `Confidence` | `f64` in [0, 1] | policy payload confidence fields |
+| `CostUsd` | `f64` ≥ 0 | budget and cost fields |
+| `ProposalCount` | `usize` | proposal count fields |
+| `ProposalLimit` | `usize` | proposal limit fields |
+| `EpochSeconds` | `i64` | `nbf_epoch`/`exp_epoch` in delegation tokens |
+
 ## Entry Points
 
 - `arbiter-policy/README.md`
 - `arbiter-policy/crates/arbiter/src/lib.rs`
+- `arbiter-policy/crates/arbiter/src/primitives.rs`
 - `arbiter-policy/crates/arbiter/src/analysis.rs`
 - `arbiter-policy/crates/arbiter/src/engine.rs`
 - `arbiter-policy/crates/arbiter/src/formation.rs`

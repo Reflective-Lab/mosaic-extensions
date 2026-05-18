@@ -22,9 +22,15 @@ storage contract.
 
 | Module | Role |
 |---|---|
-| `object_storage` | Builds `Arc<dyn ObjectStore>` from `StorageConfig` for local, S3, or GCS backends depending on enabled features. |
-| `experience` | SurrealDB and LanceDB implementations of Converge experience-store contracts. |
-| `vector` | LanceDB-backed vector recall adapter and re-exported vector capability types. |
+| `object_storage` | Builds `Arc<dyn ObjectStore>` from `StorageConfig` for local, S3, or GCS backends. |
+| `experience` | SurrealDB and LanceDB experience-store implementations. |
+| `vector` | LanceDB-backed vector recall adapter. |
+| `fetch` | `HttpFetchProvider` — fallible constructor (`::new() -> Result`), generic HTTP fetch. |
+| `feed` | `HttpFeedProvider` — fallible constructor, streaming feed retrieval. |
+| `llm` | Chat LLM adapters: openai, gemini, mistral, openrouter, staik, kong, anthropic. All share `llm::retry::retry_with_backoff` — do not inline backoff loops. |
+| `llm::retry` | `retry_with_backoff(max_retries, closure) -> Result` — 100ms × 2^attempt backoff, `RetryOutcome::Retry`/`Fail`/`Success`. Single shared implementation for all LLM backends. |
+| `reranker` | `QwenVLReranker` — fallible constructor. |
+| `contract` | `canonical_hash` — SHA-256 content fingerprint (first 8 bytes, 16-hex output). Stable across toolchain versions. |
 
 ## Feature Flags
 

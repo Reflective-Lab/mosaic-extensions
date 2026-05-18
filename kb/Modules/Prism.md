@@ -42,18 +42,29 @@ this boundary after implementation had drifted while crucible was a stub.
 - `SimilarityPack`
 - `TrendDetectionPack`
 
-## Planned Fuzzy Inference
+## Fuzzy Inference
 
-Fuzzy logic belongs in `prism` first as a reusable capability plus analytic
-pack wrapper, not as a standalone extension. `prism::fuzzy` should own the
-membership functions and inference engine. `FuzzyInferencePack` should expose
-that capability to Converge formations as graded memberships, activated-rule
-traces, confidence, and advisory proposals.
+`prism::fuzzy` is built. `FuzzyInferencePack` ships and is available infra — do not propose rebuilding it.
 
-Use `arbiter` for hard policy, `ferrox` for hard constraints and optimization,
-and `mnemos` for memory and historical grounding.
+The engine supports Mamdani, Sugeno, and Tsukamoto inference with configurable membership functions and defuzzification. Key types:
+
+- `MembershipDegree` — `f64` in [0, 1] with `serde(transparent)`. The single typed float for all membership/confidence values in the fuzzy module. Do not use bare `f64` here.
+- `MembershipFunction::evaluate()` returns `MembershipDegree`.
+- `FuzzyInferenceOutput.confidence` and `.memberships` are `MembershipDegree`.
+
+Use `arbiter` for hard policy, `ferrox` for hard constraints and optimization, and `mnemos` for memory and historical grounding.
 
 See also: [[Architecture/Expert Portfolio Architecture]]
+
+## Domain Primitives
+
+`crates/prism/src/primitives.rs` — constrained types for analytics pack structs. Do not substitute raw floats or `usize`.
+
+| Type | Constraint | Used in |
+|---|---|---|
+| `UnitFraction` | `f64` in [0, 1], custom `Deserialize` enforcement | forecast confidence, anomaly scores, classification probabilities |
+| `ZScoreThreshold` | `f64` > 0, custom `Deserialize` enforcement | anomaly detection threshold |
+| `NonZeroUsize` | re-exported from `std` | required-count fields across packs |
 
 ## Feature Flags
 

@@ -39,10 +39,15 @@ storage and recall mechanisms that can participate in the convergence loop.
 Do not move every knowledge store into Converge. Keep the foundation contract
 small and let products choose whether recall is embedded or remote.
 
+## Shared Math
+
+`crates/mnemos/src/math.rs` — canonical `pub(crate) fn cosine_similarity(a: &[f32], b: &[f32]) -> f32`. This is the single cosine implementation; knowledge_base, batch, embedding, and meta all delegate here. Do not add another.
+
 ## Entry Points
 
 - `mnemos-knowledge/README.md`
 - `mnemos-knowledge/crates/mnemos/src/lib.rs`
+- `mnemos-knowledge/crates/mnemos/src/math.rs`
 - `mnemos-knowledge/crates/mnemos/src/core/knowledge_base.rs`
 - `mnemos-knowledge/crates/mnemos/src/suggestor.rs`
 - `mnemos-knowledge/crates/mnemos/src/ingest/`

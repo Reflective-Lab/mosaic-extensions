@@ -84,7 +84,13 @@ See also: [[Architecture/Pluralist Reasoning Substrate]],
 
 - `crucible-models/README.md`
 - `crucible-models/crates/crucible/src/lib.rs`
-- `crucible-models/crates/crucible/src/training.rs`
+- `crucible-models/crates/crucible/src/training/mod.rs` — re-exports + all tests (split from the former `training.rs` on 2026-05-18)
+- `crucible-models/crates/crucible/src/training/types.rs` — 14 structs, fact-payload impls, context helpers
+- `crucible-models/crates/crucible/src/training/io.rs` — file I/O, DataFrame utilities, math helpers
+- `crucible-models/crates/crucible/src/training/dataset.rs` — `DatasetAgent`
+- `crucible-models/crates/crucible/src/training/features.rs` — `DataValidationAgent`, `FeatureEngineeringAgent`, `HyperparameterSearchAgent`
+- `crucible-models/crates/crucible/src/training/pipeline.rs` — `ModelTrainingAgent`
+- `crucible-models/crates/crucible/src/training/evaluation.rs` — `ModelEvaluationAgent`, `SampleInferenceAgent`, `ModelRegistryAgent`, `MonitoringAgent`, `DeploymentAgent`
 - `crucible-models/crates/crucible/src/ingest.rs`
 - `crucible-models/crates/crucible/src/storage.rs`
 - `crucible-models/crates/crucible/src/provenance.rs`

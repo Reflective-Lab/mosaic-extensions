@@ -60,7 +60,7 @@ status is mapped to a Rust enum at the boundary; raw types are never made public
 
 ## Quick Checklist
 
-See `REVIEW-GUIDE.md` section 9 for the full yes/no checklist covering types,
+See `REVIEW-GUIDE.md` section 10 for the full yes/no checklist covering types,
 tests, duplication, Converge compliance, FFI, and separation of concerns.
 
 See also: [[Standards/Suggestor Contract]], [[Standards/Extension Standard]],

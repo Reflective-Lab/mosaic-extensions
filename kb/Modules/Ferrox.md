@@ -34,8 +34,27 @@ the same convergence run.
 |---|---|
 | `ferrox-solver` | Library surface for solver suggestors and problem models. |
 | `ferrox-server` | gRPC service wrapper. |
-| `ferrox-ortools-sys` | OR-Tools native wrapper. |
-| `ferrox-highs-sys` | HiGHS native wrapper. |
+| `ferrox-ortools-sys` | OR-Tools native wrapper. All 56 unsafe blocks carry `// SAFETY:` comments. |
+| `ferrox-highs-sys` | HiGHS native wrapper. All 13 unsafe blocks carry `// SAFETY:` comments. |
+
+## Domain Types
+
+`crates/ferrox/src/domain_types.rs` defines typed primitives shared across solver problem structs. Do not use raw `i32`/`usize`/`i64` for these concepts.
+
+| Type | Wraps | Used in |
+|---|---|---|
+| `NodeId` | `i32` | `network_flow` arc/supply node indices |
+| `Minutes` | `i64` | `scheduling` and `jobshop` time windows and durations |
+| `TaskId` | `usize` | `scheduling` task identifiers |
+| `AgentId` | `usize` | `scheduling` agent identifiers |
+| `MachineId` | `usize` | `jobshop` machine identifiers |
+| `JobId` | `usize` | `jobshop` job identifiers |
+| `ProcessingTime` | `i64` | `jobshop` operation durations |
+
+## Solve-Status Types
+
+All seven problem types use typed enums for solver outcome — not `status: String`:
+`LpSolveStatus`, `MipSolveStatus`, `CpSolveStatus`, `SchedulingSolveStatus`, `VrptwSolveStatus`, `JobShopSolveStatus`, `FlowSolveStatus`.
 
 ## Suggestor Families
 

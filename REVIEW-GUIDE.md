@@ -340,7 +340,110 @@ This is the model for all sys crates.
 
 ---
 
-## 8. Reference Implementations
+## 8. Converge Runtime and Kernel Addendum
+
+These checks came out of reviewing Converge itself. Apply them whenever a change touches
+`converge-core`, `converge-pack`, `converge-kernel`, `converge-runtime`, or public payload
+contracts.
+
+### Logical Time, Not Wall Time
+
+**The smell:** core replay, provenance, facts, proposals, or deterministic tests call
+`SystemTime::now()`, `Uuid::new_v4()`, thread RNGs, or process-random hashers.
+
+Converge has its own clock. Core semantics should use the engine/logical clock
+(Lamport-style) and pass that timestamp through promotion. Wall-clock time belongs at runtime
+boundaries, logs, transport metadata, and operator-facing telemetry, not in replayable semantic
+state.
+
+Review questions:
+
+- Does this timestamp affect fact identity, provenance, replay, hashing, or deterministic tests?
+  If yes, it must come from the Converge logical clock.
+- Does this ID need to be reproducible in tests or replay? If yes, use a deterministic counter or
+  engine-supplied identifier, not wall time or random UUIDs.
+- Is wall-clock time only used for transport/logging/operator observability? Then it may stay at
+  the runtime boundary.
+
+### Stable Hashing and Deterministic Ordering
+
+**The smell:** `DefaultHasher`, map iteration order, `partial_cmp(...).unwrap_or(...)`, or
+floating-point sort keys without deterministic tie-breakers.
+
+`DefaultHasher` is intentionally not a stable content fingerprint. It can change across process
+starts, compiler versions, and platforms. Use an explicit stable hash such as SHA-256 or BLAKE3
+for replay, cache keys, provenance, or content addressing.
+
+For scores and costs:
+
+- use `f32::total_cmp` / `f64::total_cmp`
+- add deterministic tie-breakers (`id`, provider name, model name, index) after score comparison
+- reject or type-wrap non-finite inputs at the boundary when NaN/inf has no domain meaning
+
+### Honest Optional Features
+
+**The smell:** a feature flag exists, but the heavy dependency is unconditional; or a feature
+compiles only in the default path and fails under `--all-features`.
+
+Optional capability means both the module and its dependency graph are optional. A feature like
+`metrics`, `telemetry`, `nats`, `gcp`, `wasm`, or `grpc` should own the `dep:*` entries that make
+it compile.
+
+Review commands for runtime feature work:
+
+```bash
+cargo check -p converge-runtime --no-default-features
+cargo check -p converge-runtime
+cargo check -p converge-runtime --all-features
+just size-audit
+```
+
+If `--all-features` fails, do not call the feature healthy. Either fix it, quarantine it, or
+document the failure as known drift with a follow-up.
+
+### Blast Radius Is a Review Surface
+
+**The smell:** a small runtime feature drags in Wasmtime/Cranelift, OpenTelemetry, cloud SDKs,
+NATS, duplicate transport stacks, or database clients for consumers that did not ask for them.
+
+Review dependency changes with the same seriousness as code changes:
+
+- check `cargo tree -p <crate>` before and after
+- measure artifact size with `just size-audit` when runtime/kernel packaging is touched
+- remove stale workspace dependencies; a workspace dependency no crate uses is still confusing
+  surface area
+- keep dev/test-only crates in `[dev-dependencies]`
+- never add inline versions in member `Cargo.toml`; use workspace dependencies
+
+### Honest Runtime Failures
+
+**The smell:** an endpoint, stream, or RPC returns success for work it did not actually perform.
+
+Runtime shells must fail honestly:
+
+- HTTP handlers for unsupported paths should return `501 Not Implemented`, not placeholder
+  success
+- gRPC methods without a backing store should return `Status::unimplemented`
+- SSE/control streams should emit an error event or fail startup cleanly, not panic or report
+  success
+- startup paths should return `Result` errors instead of `expect`
+
+Fake success is worse than a missing feature because it corrupts operator and client state.
+
+### Schema Strictness
+
+Known schemas should reject unknown fields. Use `serde(deny_unknown_fields)` for:
+
+- `FactPayload` structs
+- runtime/storage config structs
+- wire-facing request/response DTOs where the extension point is not explicitly open
+
+When a schema intentionally has an open extension point, make it obvious with a typed
+`metadata`, `extensions`, or `serde_json::Value` field and validate the closed fields around it.
+
+---
+
+## 9. Reference Implementations
 
 These are the patterns to copy, not invent around.
 
@@ -420,7 +523,7 @@ pub const MAX_TIMEOUT_MS: TimeoutMs = TimeoutMs(60_000);
 
 ---
 
-## 9. Quick Review Checklist
+## 10. Quick Review Checklist
 
 Run through this when reviewing a PR or auditing a crate.
 
@@ -450,6 +553,18 @@ Run through this when reviewing a PR or auditing a crate.
 - [ ] Any `impl Default` on a type with no meaningful default? → remove, require explicit construction
 - [ ] `CallContext::default()` inside an `execute()` body? → thread the context from the caller
 - [ ] `serde(deny_unknown_fields)` on every `FactPayload`? → add it if missing
+- [ ] Core/replay/provenance path uses `SystemTime::now()`, random UUIDs, thread RNG, or
+      `DefaultHasher`? → use logical time, deterministic IDs, explicit seeds, or stable hashing
+- [ ] Float sorting has no deterministic tie-breaker? → add `total_cmp` plus id/name/index tie-break
+- [ ] Runtime endpoint reports success for unsupported work? → return `501` / `Unimplemented`
+
+**Packaging / features**
+- [ ] Optional runtime feature owns its heavy `dep:*` dependencies?
+- [ ] `cargo check -p converge-runtime --no-default-features` passes?
+- [ ] `cargo check -p converge-runtime --all-features` passes or known drift is documented?
+- [ ] `just size-audit` was run for runtime/kernel packaging changes?
+- [ ] Test-only dependency is in `[dev-dependencies]`?
+- [ ] Workspace dependency is still used by at least one crate?
 
 **FFI**
 - [ ] Every `unsafe` block has a `// SAFETY:` comment?
