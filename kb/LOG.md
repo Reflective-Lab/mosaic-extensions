@@ -5,6 +5,11 @@ date: 2026-05-05
 ---
 # KB Mutation Log
 
+## 2026-05-19
+
+- Added `kb/Architecture/SMT vs Interactive Theorem Proving.md` capturing the design rationale for stopping at SMT-backed symbolic analysis (Cedar + SymCC + CVC5) and holding the Lean/Coq/Agda Verified tier in reserve until an app demands an independently-checked artifact.
+- Indexed the new page in `kb/INDEX.md` under Architecture.
+
 ## 2026-05-18
 
 - Completed a four-tier workspace code quality sweep across all 8 extension families.

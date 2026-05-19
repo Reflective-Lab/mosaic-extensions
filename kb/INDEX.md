@@ -49,6 +49,7 @@ Curated catalog for the Converge extensions workspace.
 - [Golden Integration Harness](Architecture/Golden%20Integration%20Harness.md)
 - [Pluralist Reasoning Substrate](Architecture/Pluralist%20Reasoning%20Substrate.md)
 - [Expert Portfolio Architecture](Architecture/Expert%20Portfolio%20Architecture.md)
+- [SMT vs Interactive Theorem Proving](Architecture/SMT%20vs%20Interactive%20Theorem%20Proving.md)
 - [Extraction Status](Architecture/Extraction%20Status.md)
 
 ## Modules
