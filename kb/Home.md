@@ -62,6 +62,7 @@ analytics, policy engines, and source-specific connector ports.
 - [[Standards/Extension Standard]] - minimum shape for new extension repos and crates
 - [[Standards/Suggestor Contract]] - rules for extension suggestor behavior
 - [[Standards/Review Guide]] - code quality standards: type smells, Converge compliance, reference implementations
+- [[Standards/Real-by-Default Connections]] - **REAL is the default; mocks are opt-in**. Providers, ports, and FFI default to live connections with fallible constructors; CLIs default REAL with `--mock-ok` opt-in; apps default REAL with env-var mock opt-in. Silent fallback to fake is theatre.
 
 ## Planning
 
