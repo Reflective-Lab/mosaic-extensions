@@ -102,7 +102,7 @@ How to pull: `converge-ferrox-solver` (lib name `ferrox`); features `ortools`, `
 | `vector` | LanceDB-backed vector recall | KNN that doesn't require a SaaS bill | Embedded ANN that ships in your binary. |
 | `fetch::HttpFetchProvider` | Generic HTTP fetch, fallible ctor | Provider-shaped curl | The boring "go get a URL" capability behind the contract so it can be mocked and rate-limited. |
 | `feed::HttpFeedProvider` | Streaming feed retrieval | RSS / Atom / anything-streaming | Background ingestion with the same provider shape. |
-| `llm` | Chat adapters: openai, gemini, mistral, openrouter, staik, kong, anthropic | Swap the model without touching the app | Seven vendors behind one trait — change provider via config, not refactor. |
+| `llm` | Chat adapters: openai, gemini, mistral, openrouter, staik, kong, anthropic (plus arcee, minmax, writer) | Swap the model without touching the app | Vendors behind one trait — change provider via config, not refactor. All backends use fallible REAL-by-default constructors (`try_new(key) -> BackendResult<Self>` and `from_env() -> BackendResult<Self>`) that reject empty / whitespace keys at construction. No silent fallback to a useless backend on missing credentials. |
 | `llm::retry::retry_with_backoff` | 100 ms × 2^attempt backoff | One backoff, not seven | Single shared retry loop across every LLM backend; apps never re-implement exponential backoff. |
 | `reranker::QwenVLReranker` | Qwen-VL reranking, fallible ctor | Better top-K with a real reranker | Pairs naturally with a vector recall step — rerank what matters before paying an LLM. |
 | `contract::canonical_hash` | SHA-256, first 8 bytes → 16-hex | Stable content fingerprint | Toolchain-independent dedup / cache key — same input, same hash, forever. |
@@ -160,7 +160,7 @@ How to pull: `converge-prism-analytics` (lib name `prism`). Features: `excel`. S
 |---|---|---|---|
 | `SmtSuggestor` + `SmtQuery` / `SmtReport` | SMT query / response contract | SMT as a Converge fact | A Converge run can consume "no counterexample found" as evidence, side-by-side with policy, model, and analytics suggestors. |
 | `Cvc5FfiBackend` | Native CVC5 FFI in `crates/cvc5-sys` | First-class SMT in-process | No subprocess, no `PATH` dependency — apps that need real CVC5 link it. |
-| `FakeSmtBackend` | Scripted-response solver | Tests that don't need CVC5 | CI runs the same suggestor shape without the native dep. |
+| `ScriptedSmtBackend` (`fake-backend` feat.) | Scripted-response solver | Tests that don't need CVC5 | CI runs the same suggestor shape without the native dep. Gated behind a non-default `fake-backend` feature so a default-features build cannot fall through to a scripted answer in place of real evidence. |
 | Stable query hashes | Content-addressed query identity | Replay any solver call | Audit and replay across solver upgrades — the query you ran is the query you ran. |
 | Structured solver identity | Version + commit + source mode + configure flags + runtime opts | Reproduce yesterday's "unsat" | Records *exactly* which solver said what — survives CVC5 upgrades and rebuilds. |
 | `ArbiterExpenseCommitInvariant` + `ArbiterExpensePolicyModel` | Abstract policy model + invariant query | Working cross-extension showcase | The wired example: Arbiter owns Cedar modeling, Soter owns SMT execution — exactly the cross-module shape apps should copy. |

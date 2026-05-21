@@ -35,7 +35,7 @@ proof-assistant tier before a checked-proof app need exists.
 - `SmtReport`
 - `SmtStatus`
 - `SmtBackend`
-- `FakeSmtBackend`
+- `ScriptedSmtBackend` (behind the non-default `fake-backend` feature)
 - `ArbiterExpenseCommitInvariant`
 - `ArbiterExpensePolicyModel`
 - `SmtSuggestor`
