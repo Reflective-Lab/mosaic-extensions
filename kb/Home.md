@@ -17,6 +17,8 @@ analytics, policy engines, and source-specific connector ports.
 **Start here:** [[Ecosystem]], then [[Architecture/Extension Topology]] and
 [[Architecture/Converge Boundary]].
 
+**For downstream apps:** [[Capability Matrix]] — every callable function across the eight modules, with algorithm, tagline, and why it matters.
+
 **Meta:** [[INDEX]] - entity catalog | [[LOG]] - mutation log
 
 ## Architecture

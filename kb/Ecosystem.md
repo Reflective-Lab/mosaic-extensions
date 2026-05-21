@@ -42,6 +42,10 @@ They own secrets, processes, Docker, cloud topology, and environment selection.
 | Analytics | [[Modules/Prism]] owns feature extraction, closed-form inference, fuzzy logic, and analytics packs. |
 | SMT evidence | [[Modules/Soter]] owns CVC5-backed safety evidence and SMT suggestors. |
 
+## What's Already in Reach
+
+Downstream apps consistently underestimate what is already callable. The [[Capability Matrix]] enumerates every function across the eight modules with its algorithm, tagline, and why-it-matters paragraph — read it before reaching for a new build.
+
 ## Why This Shape
 
 The extracted shape keeps Converge small enough to be a stable foundation while
