@@ -5,6 +5,13 @@ date: 2026-05-05
 ---
 # KB Mutation Log
 
+## 2026-05-22
+
+- Updated `kb/Capability Matrix.md` to name `embassy-sec-edgar`'s
+  provider-shaped `LiveSecEdgarProvider` surface: the `live` feature now
+  returns typed `Observation<Filing>` records rather than only exposing helper
+  fetch/extract functions.
+
 ## 2026-05-19
 
 - Added `kb/Architecture/SMT vs Interactive Theorem Proving.md` capturing the design rationale for stopping at SMT-backed symbolic analysis (Cedar + SymCC + CVC5) and holding the Lean/Coq/Agda Verified tier in reserve until an app demands an independently-checked artifact.

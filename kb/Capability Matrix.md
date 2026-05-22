@@ -56,7 +56,7 @@ How to pull: `converge-crucible-models` (lib name `crucible`). Features: `storag
 | Function | Algorithm | Tagline | Why it matters |
 |---|---|---|---|
 | `embassy-linkedin` | LinkedIn profile lookup → `LinkedInProfile` | Treat LinkedIn as evidence, not a string | Source identity is part of the type. Compliance, terms, and provenance ride with the observation. |
-| `embassy-sec-edgar` | EDGAR filings fetch | US public-company truth | Apps that touch US public-co context get filings as a typed observation, not a scrape. |
+| `embassy-sec-edgar` | EDGAR filings fetch + `LiveSecEdgarProvider` | US public-company truth | Apps that touch US public-co context get filings as typed `Observation<Filing>` records, not a scrape. The `live` feature resolves SEC metadata, fetches the primary document, and carries Item 1A for 10-K filings through the provider trait. |
 | `embassy-bolagsverket` | Swedish company registry lookup | Authoritative SE entity data | KYC/onboarding in Sweden without reinventing the registry client. |
 | `embassy-gleif` | LEI lookup | One global ID for legal entities | Cross-jurisdiction joins on counterparties — the only ID that actually federates. |
 | `embassy-vies` | EU VAT number validation | Is this VAT number real, today | Stops invoice fraud at the boundary; carries the EU's own validation response. |
