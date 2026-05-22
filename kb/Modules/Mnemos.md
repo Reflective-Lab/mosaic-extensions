@@ -13,7 +13,8 @@ It can be used as a library, CLI, gRPC server, or Converge suggestor family.
 ## Owns
 
 - `KnowledgeBase`, entries, search options, and search results.
-- Vector-backed retrieval and storage backend.
+- Vector-backed retrieval, BM25 lexical recall, RRF hybrid ranking, and storage
+  backend.
 - Embedding support, including OpenAI embeddings.
 - Markdown and rich-media ingestion.
 - Agentic memory: causal, temporal, reflexion, skills, online learning, and
@@ -42,6 +43,18 @@ small and let products choose whether recall is embedded or remote.
 ## Shared Math
 
 `crates/mnemos/src/math.rs` — canonical `pub(crate) fn cosine_similarity(a: &[f32], b: &[f32]) -> f32`. This is the single cosine implementation; knowledge_base, batch, embedding, and meta all delegate here. Do not add another.
+
+## Retrieval
+
+Hybrid retrieval is opt-in through `SearchOptions::hybrid(...)` and the gRPC
+`SearchRequest.hybrid` field. Mnemos ranks vector similarity and BM25 lexical
+matches separately, then merges ranks with Reciprocal Rank Fusion:
+`sum(1 / (60 + rank))`, using 1-based ranks. This keeps acronym, exact-term,
+and rare-keyword recall separate from semantic similarity without calibrating
+raw BM25 scores against vector similarities.
+
+Category and tag filters are applied before ranking. Retrieval remains recall
+only; Converge still owns proposal promotion.
 
 ## Entry Points
 
