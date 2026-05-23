@@ -27,6 +27,7 @@ storage contract.
 | `vector` | LanceDB-backed vector recall adapter. |
 | `fetch` | `HttpFetchProvider` — fallible constructor (`::new() -> Result`), generic HTTP fetch. POST is supported via `WebFetchMethod::Post` and `WebFetchRequest::with_body` for SOAP envelopes and JSON-API POST endpoints. |
 | `xml` (feature) | `extract_first_text` / `extract_all_texts` over quick-xml — tag-shaped, namespace-prefix-stripping element-text grabs. Right size for SOAP responses and simple XML feeds; not for schema-bound deserialization. |
+| `pagination` (feature) | `paginate(backend, initial, advance, config)` — closure-driven page-walker that works against any `WebFetchBackend`. The caller's advance closure handles cursor/offset/link-header specifics. Page-cap reached with more pages pending is a typed error, not silent truncation. |
 | `feed` | `HttpFeedProvider` — fallible constructor, streaming feed retrieval. |
 | `llm` | Chat LLM adapters: openai, gemini, mistral, openrouter, staik, kong, anthropic. All share `llm::retry::retry_with_backoff` — do not inline backoff loops. |
 | `llm::retry` | `retry_with_backoff(max_retries, closure) -> Result` — 100ms × 2^attempt backoff, `RetryOutcome::Retry`/`Fail`/`Success`. Single shared implementation for all LLM backends. |
