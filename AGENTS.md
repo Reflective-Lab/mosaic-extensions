@@ -99,4 +99,9 @@ git -C ferrox-solvers status --short --branch
 Each named directory is an independent git repository. Check status per repo
 before editing or committing.
 
+Trunk branch: every extension uses `main` as the single trunk. There is no
+`next` branch. Tag releases on `main`. Open PRs against `main`. (Migrated from
+a `next`+`main` two-track model on 2026-05-28; bedrock-platform follows the
+same rule.)
+
 See also: `kb/Workflow/Git Strategy.md`.
