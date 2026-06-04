@@ -1,7 +1,7 @@
 # Converge Extensions Workspace
 
 This is the canonical agent entrypoint for
-`/Users/kpernyer/dev/reflective/stack/mosaic-extensions`.
+`/Users/kpernyer/dev/reflective/mosaic-extensions`.
 
 This directory is a multi-repo container for reusable Mosaic extension
 families. It is not a single Cargo workspace and it is not itself the Converge

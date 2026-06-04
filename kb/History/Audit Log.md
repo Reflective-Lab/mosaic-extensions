@@ -52,7 +52,7 @@ Sources read:
 
 Key findings:
 
-- The Converge KB already names `/Users/kpernyer/dev/reflective/stack/mosaic-extensions` as the
+- The Converge KB already names `/Users/kpernyer/dev/reflective/mosaic-extensions` as the
   canonical home for reusable extensions.
 - The current extension set is `arbiter`, `embassy`, `ferrox`, `manifold`,
   `mnemos`, and `prism`.

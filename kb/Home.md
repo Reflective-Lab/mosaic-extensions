@@ -6,7 +6,7 @@ date: 2026-05-05
 # Mosaic Extensions
 
 Knowledge base for
-`/Users/kpernyer/dev/reflective/stack/mosaic-extensions`, the reusable
+`/Users/kpernyer/dev/reflective/mosaic-extensions`, the reusable
 extension home for Converge-adjacent Mosaic capabilities.
 
 This workspace exists to make Converge right-shaped: Converge keeps the

@@ -17,9 +17,8 @@ fitting logic during the period when crucible was scaffolded but unbuilt.
 
 ## Owns
 
-- Multi-format dataset ingestion via Polars (CSV / TSV / Parquet / Excel).
-- Polars ⇄ `converge-storage::ObjectStore` bridge for `gs://`, `s3://`,
-  `file://`, and MinIO-compatible backends (feature `storage`).
+- Multi-format dataset ingestion via Polars (CSV / TSV / Parquet / optional
+  Excel).
 - Training pipeline agents: dataset, validation, feature engineering,
   hyperparameter search, fit, evaluation, registry, monitoring, deployment.
 - Trained-artifact packs: Random Forests / gradient-boosted trees
@@ -55,7 +54,6 @@ fitting logic during the period when crucible was scaffolded but unbuilt.
 
 ## Feature Flags
 
-- `storage` enables the `converge-storage::ObjectStore` bridge.
 - `excel` enables optional Excel ingestion through `calamine`.
 
 ## Continuous Learning Position
@@ -91,7 +89,6 @@ See also: [[Architecture/Pluralist Reasoning Substrate]],
 - `crucible-models/crates/crucible/src/training/features.rs` — `DataValidationAgent`, `FeatureEngineeringAgent`, `HyperparameterSearchAgent`
 - `crucible-models/crates/crucible/src/training/pipeline.rs` — `ModelTrainingAgent`
 - `crucible-models/crates/crucible/src/training/evaluation.rs` — `ModelEvaluationAgent`, `SampleInferenceAgent`, `ModelRegistryAgent`, `MonitoringAgent`, `DeploymentAgent`
-- `crucible-models/crates/crucible/src/ingest.rs`
-- `crucible-models/crates/crucible/src/storage.rs`
+- `crucible-models/crates/crucible/src/ingest.rs` — dataset and file ingestion; Crucible does not own a storage module
 - `crucible-models/crates/crucible/src/provenance.rs`
 - `crucible-models/crates/crucible/src/{ensembles,trees,svm,neuro_fuzzy}/`

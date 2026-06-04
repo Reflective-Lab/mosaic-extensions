@@ -5,7 +5,7 @@ date: 2026-05-05
 ---
 # Git Strategy
 
-There is no single git repository at `/Users/kpernyer/dev/reflective/stack/mosaic-extensions`.
+There is no single git repository at `/Users/kpernyer/dev/reflective/mosaic-extensions`.
 Treat each extension directory as its own repository or scaffold.
 
 ## Rules

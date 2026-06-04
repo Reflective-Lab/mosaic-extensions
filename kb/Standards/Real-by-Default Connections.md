@@ -99,7 +99,7 @@ When fixing a violation, also confirm: any atelier scenario or marquee app that 
 
 ## Cross-references
 
-- `~/dev/reflective/stack/atelier-showcase/kb/Home.md` — scenarios must default to REAL; this Standard is binding on every v1.1.0 scenario.
+- `~/dev/reflective/atelier-showcase/kb/Home.md` — scenarios must default to REAL; this Standard is binding on every v1.1.0 scenario.
 - `~/dev/reflective/marquee-apps/kb/Home.md` — apps must default to REAL; mock is env-var-opt-in.
 - `~/dev/reflective/marquee-apps/kb/mosaic-pull-matrix.md` — a pull does not count as "actively pulled" if the call lands on a fake under the default config.
 - `~/dev/reflective/marquee-apps/shoal-meta/kb/portfolio-stretch.md` — the pull-rate metric excludes calls that resolve to fakes.

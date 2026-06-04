@@ -9,7 +9,7 @@ Extensions are reusable parts. They are not the product runtime.
 
 ## Who Assembles
 
-Products, demos, Runway, or deployment repositories assemble extensions into a
+Products, demos, Runtime Runway, or deployment repositories assemble extensions into a
 running system. They own:
 
 - which extensions are enabled,

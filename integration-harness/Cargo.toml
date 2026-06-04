@@ -9,9 +9,9 @@ publish = false
 arbiter = { package = "converge-arbiter-policy", path = "../arbiter-policy/crates/arbiter" }
 async-trait = { version = "0.1", optional = true }
 cedar-policy-symcc = { version = "0.4", optional = true }
-converge-core = "3.9.1"
-converge-kernel = "3.9.1"
-converge-pack = "3.9.1"
+converge-core = "3.9.2"
+converge-kernel = "3.9.2"
+converge-pack = "3.9.2"
 crucible = { package = "converge-crucible-models", path = "../crucible-models/crates/crucible" }
 mnemos = { package = "converge-mnemos-knowledge", path = "../mnemos-knowledge/crates/mnemos", default-features = false, features = ["memory-only"] }
 prism = { package = "converge-prism-analytics", path = "../prism-analytics/crates/prism" }

@@ -21,6 +21,7 @@ extension directory before running Cargo commands.
 | `mnemos-knowledge/` | Knowledge, recall, retrieval, storage, and memory Suggestors |
 | `prism-analytics/` | Closed-form analytics, feature extraction, inference, fuzzy logic, and analytic packs |
 | `soter-smt/` | SMT-backed safety evidence, CVC5 FFI, and solver Suggestors |
+| `integration-harness/` | Product-side cross-extension assembly checks; not an extension dependency target |
 
 ## Boundary
 
@@ -31,8 +32,12 @@ Converge contracts <- Mosaic extensions <- products / deployments
 ```
 
 Converge owns the contract and promotion authority. Mosaic owns reusable
-implementation-heavy specialists. Products, Runway deployments, Commerce Rails,
-and customer systems assemble the specialists they need.
+implementation-heavy specialists. Products, Runtime Runway deployments,
+Commerce Rails, and customer systems assemble the specialists they need.
+
+Prism and Crucible are deliberately separate. Prism owns deterministic,
+hand-authored analytics and fuzzy inference. Crucible owns trained models,
+training loops, model artifacts, and registry/deployment agents.
 
 ## Start Here
 

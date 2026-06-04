@@ -5,7 +5,7 @@ date: 2026-05-05
 ---
 # Extension Topology
 
-`/Users/kpernyer/dev/reflective/stack/mosaic-extensions` is the canonical home
+`/Users/kpernyer/dev/reflective/mosaic-extensions` is the canonical home
 for reusable Mosaic extensions.
 
 The dependency rule is one-way:

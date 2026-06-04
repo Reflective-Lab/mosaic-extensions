@@ -6,11 +6,11 @@ date: 2026-05-06
 # Developer Guide for Converge Extensions
 
 This guide is the practical entry point for developers working in
-`/Users/kpernyer/dev/reflective/stack/mosaic-extensions`, the reusable extension home for
+`/Users/kpernyer/dev/reflective/mosaic-extensions`, the reusable extension home for
 Converge-adjacent capabilities.
 
-It is adapted from the Converge 3.8.1 developer guide at
-`/Users/kpernyer/dev/reflective/stack/bedrock-platform/converge/kb/Building/Developer Guide.md`, but this
+It is adapted from the Converge 3.9.1 developer guide at
+`/Users/kpernyer/dev/reflective/bedrock-platform/converge/kb/Building/Developer Guide.md`, but this
 page is for extension repositories. The parent folder is a multi-repo
 container, not a Cargo workspace and not the Converge foundation.
 
@@ -23,9 +23,9 @@ and showcase examples.
 
 | Item | Value |
 |---|---|
-| Workspace container | `/Users/kpernyer/dev/reflective/stack/mosaic-extensions` |
-| Foundation checkout | `/Users/kpernyer/dev/reflective/stack/bedrock-platform/converge` |
-| Converge contract baseline | `3.8.1` |
+| Workspace container | `/Users/kpernyer/dev/reflective/mosaic-extensions` |
+| Foundation checkout | `/Users/kpernyer/dev/reflective/bedrock-platform/converge` |
+| Converge contract baseline | `3.9.1` |
 | Rust edition | 2024 |
 | MSRV | 1.94.0 |
 | License | MIT |
@@ -40,14 +40,14 @@ Start with [[Home]], [[Architecture/Extension Topology]], and
 From the container:
 
 ```bash
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions
+cd /Users/kpernyer/dev/reflective/mosaic-extensions
 just status
 ```
 
 Then enter the specific extension repository:
 
 ```bash
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/<extension-dir>
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/<extension-dir>
 cat AGENTS.md
 cat README.md
 cat Cargo.toml
@@ -73,22 +73,23 @@ The parent `Justfile` is only a cross-repo command wrapper.
 ## Extension Versions
 
 Each extension versions independently. The parent folder has no shared release.
-All extension release lines target Converge `3.8.1`.
+Current local extension lines target the Converge `3.9.1` contract.
 
 | Repository | Workspace Version | Converge Baseline | Cargo Packages |
 |---|---:|---|---|
-| `arbiter-policy/` | `2.0.0` | `3.8.1` | `converge-arbiter-policy` |
-| `crucible-models/` | `0.2.0` | `3.8.1` | `converge-crucible-models` |
-| `embassy-ports/` | `1.1.1` | `3.8.1` | `converge-embassy-pack`, `converge-embassy-linkedin` |
-| `ferrox-solvers/` | `0.6.0` | `3.8.1` | `converge-ferrox-solver`, `converge-ferrox-server`, `converge-ferrox-ortools-sys`, `converge-ferrox-highs-sys` |
-| `manifold-adapters/` | `1.1.1` | `3.8.1` | `converge-manifold-adapters` |
-| `mnemos-knowledge/` | `1.2.0` | `3.8.1` | `converge-mnemos-knowledge` |
-| `prism-analytics/` | `2.0.0` | `3.8.1` | `converge-prism-analytics` |
-| `soter-smt/` | `0.2.0` | `3.8.1` | `converge-soter-smt`, `converge-soter-cvc5-sys` |
+| `arbiter-policy/` | `2.0.1` | `3.9.1` | `converge-arbiter-policy` |
+| `crucible-models/` | `0.3.0` | `3.9.1` | `converge-crucible-models` |
+| `embassy-ports/` | `1.3.0` | `3.9.1` | `converge-embassy-pack`, source-specific `converge-embassy-*` ports |
+| `ferrox-solvers/` | `0.7.1` | `3.9.1` | `converge-ferrox-solver`, `converge-ferrox-server`, `converge-ferrox-ortools-sys`, `converge-ferrox-highs-sys` |
+| `manifold-adapters/` | `1.1.1` | `3.9.1` | `converge-manifold-adapters` |
+| `mnemos-knowledge/` | `1.2.2` | `3.9.1` | `converge-mnemos-knowledge` |
+| `prism-analytics/` | `2.0.1` | `3.9.1` | `converge-prism-analytics`, `converge-fuzzy-inference` |
+| `soter-smt/` | `0.2.2` | `3.9.1` | `converge-soter-smt`, `converge-soter-cvc5-sys` |
 
-Extension repos target Converge `3.8.1` public contracts from crates.io.
-Keep local `[patch.crates-io]` overrides out of extension repos unless the task
-explicitly requires testing unpublished foundation changes.
+Extension repos use local `[patch.crates-io]` redirects during stack
+development so unpublished Converge and Organism contract changes are consumed
+without waiting for release tags. Publishable release branches must still audit
+those patches before packaging.
 
 ## Use the Smallest Converge Contract
 
@@ -120,14 +121,14 @@ Typical package choices:
 
 ```toml
 [dependencies]
-arbiter = { package = "converge-arbiter-policy", version = "2.0.0" }
-crucible = { package = "converge-crucible-models", version = "0.2.0" }
-embassy-pack = { package = "converge-embassy-pack", version = "1.1.1" }
-embassy-linkedin = { package = "converge-embassy-linkedin", version = "1.1.1" }
-ferrox = { package = "converge-ferrox-solver", version = "0.6.0", default-features = false }
+arbiter = { package = "converge-arbiter-policy", version = "2.0.1" }
+crucible = { package = "converge-crucible-models", version = "0.3.0" }
+embassy-pack = { package = "converge-embassy-pack", version = "1.3.0" }
+embassy-linkedin = { package = "converge-embassy-linkedin", version = "1.3.0" }
+ferrox = { package = "converge-ferrox-solver", version = "0.7.1", default-features = false }
 manifold = { package = "converge-manifold-adapters", version = "1.1.1" }
-mnemos = { package = "converge-mnemos-knowledge", version = "1.2.0" }
-prism = { package = "converge-prism-analytics", version = "2.0.0" }
+mnemos = { package = "converge-mnemos-knowledge", version = "1.2.2" }
+prism = { package = "converge-prism-analytics", version = "2.0.1" }
 soter = { package = "converge-soter-smt", version = "0.2.0", default-features = false }
 ```
 
@@ -161,7 +162,7 @@ just lint manifold-adapters
 Focused work should normally run inside one extension:
 
 ```bash
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/prism-analytics
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/prism-analytics
 just check
 just test
 just lint
@@ -236,7 +237,8 @@ Entry points:
 
 - `crucible-models/README.md`
 - `crucible-models/crates/crucible/src/lib.rs`
-- `crucible-models/crates/crucible/src/training.rs`
+- `crucible-models/crates/crucible/src/training/mod.rs`
+- `crucible-models/crates/crucible/src/training/{dataset,features,pipeline,evaluation}.rs`
 - `crucible-models/crates/crucible/src/{ensembles,trees}/`
 
 Crucible owns fitting and trained artifacts. Prism owns closed-form rules and
@@ -466,13 +468,13 @@ Use the existing repo style first. Across extension repos:
 
 ## Git Model
 
-There is no root git repository at `/Users/kpernyer/dev/reflective/stack/mosaic-extensions`. Each
+There is no root git repository at `/Users/kpernyer/dev/reflective/mosaic-extensions`. Each
 extension directory is independent.
 
 Before editing an extension:
 
 ```bash
-git -C /Users/kpernyer/dev/reflective/stack/mosaic-extensions/<extension-dir> status --short --branch
+git -C /Users/kpernyer/dev/reflective/mosaic-extensions/<extension-dir> status --short --branch
 ```
 
 Keep topic branches scoped to one extension unless the work is a deliberate

@@ -6,39 +6,39 @@ date: 2026-05-05
 # Getting Started
 
 Run commands from an individual extension repository. The parent
-`/Users/kpernyer/dev/reflective/stack/mosaic-extensions` folder is not a root Cargo workspace.
+`/Users/kpernyer/dev/reflective/mosaic-extensions` folder is not a root Cargo workspace.
 
 ## Prerequisites
 
 - Rust 1.94.0 or newer.
-- Local Converge checkout at `/Users/kpernyer/dev/reflective/stack/bedrock-platform/converge`.
+- Local Converge checkout at `/Users/kpernyer/dev/reflective/bedrock-platform/converge`.
 - Native build prerequisites for Ferrox when enabling OR-Tools or HiGHS.
 
 ## Basic Checks
 
 ```bash
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/arbiter-policy
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/arbiter-policy
 cargo check
 
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/crucible-models
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/crucible-models
 cargo check
 
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/embassy-ports
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/embassy-ports
 cargo check
 
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/ferrox-solvers
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/ferrox-solvers
 cargo check
 
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/manifold-adapters
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/manifold-adapters
 cargo check
 
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/mnemos-knowledge
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/mnemos-knowledge
 cargo check
 
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/prism-analytics
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/prism-analytics
 cargo check
 
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/soter-smt
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/soter-smt
 cargo check
 ```
 
@@ -46,26 +46,26 @@ To check all current extension workspaces:
 
 ```bash
 for repo in arbiter-policy crucible-models embassy-ports ferrox-solvers manifold-adapters mnemos-knowledge prism-analytics soter-smt; do
-  (cd "/Users/kpernyer/dev/reflective/stack/mosaic-extensions/$repo" && cargo check)
+  (cd "/Users/kpernyer/dev/reflective/mosaic-extensions/$repo" && cargo check)
 done
 ```
 
 ## Feature-Specific Checks
 
 ```bash
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/ferrox-solvers
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/ferrox-solvers
 cargo check -p ferrox-solver --features full
 
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/manifold-adapters
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/manifold-adapters
 cargo check -p manifold --features all-storage
 
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/prism-analytics
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/prism-analytics
 cargo check -p prism --features excel
 
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/soter-smt
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/soter-smt
 cargo check -p soter --features cvc5
 
-cd /Users/kpernyer/dev/reflective/stack/mosaic-extensions/mnemos-knowledge
+cd /Users/kpernyer/dev/reflective/mosaic-extensions/mnemos-knowledge
 cargo check -p mnemos --no-default-features --features memory-only
 ```
 

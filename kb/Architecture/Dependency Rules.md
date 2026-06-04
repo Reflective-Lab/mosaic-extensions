@@ -27,7 +27,7 @@ The reverse edge is forbidden. Converge must not import `arbiter`, `embassy`,
    downstream.
 6. Use Cargo feature flags for heavy adapters and native bindings.
 7. Do not make one extension silently become the runtime assembler for another.
-   Products or Runway own assembly.
+   Products or Runtime Runway own assembly.
 
 ## Current Transitional Edges
 

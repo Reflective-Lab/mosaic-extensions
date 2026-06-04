@@ -5,6 +5,16 @@ date: 2026-05-05
 ---
 # KB Mutation Log
 
+## 2026-05-31
+
+- Updated README and KB pages after the cross-repository reconciliation pass:
+  current extension lines now target Converge `3.9.1`; version tables reflect
+  Arbiter `2.0.1`, Crucible `0.3.0`, Embassy `1.3.0`, Ferrox `0.7.1`,
+  Manifold `1.1.1`, Mnemos `1.2.2`, Prism `2.0.1`, and Soter `0.2.2`;
+  Prism/Crucible ownership is split between closed-form inference and fitted
+  models; Embassy is documented as a broad port family; `integration-harness/`
+  is listed as the cross-extension validation surface.
+
 ## 2026-05-22
 
 - Updated `kb/Capability Matrix.md` to name `embassy-sec-edgar`'s
@@ -31,7 +41,7 @@ date: 2026-05-05
 ## 2026-05-17
 
 - Refreshed the workspace entrypoints around the canonical checkout at
-  `/Users/kpernyer/dev/reflective/stack/mosaic-extensions`.
+  `/Users/kpernyer/dev/reflective/mosaic-extensions`.
 - Added a root `README.md` so the Mosaic container has the same story-bearing
   entrypoint as the extension repos it contains.
 - Clarified Embassy as an evidence-oriented source-specific connector family,
@@ -44,7 +54,7 @@ date: 2026-05-05
 
 ## 2026-05-05
 
-- Created the extensions KB for `/Users/kpernyer/dev/reflective/stack/mosaic-extensions`.
+- Created the extensions KB for `/Users/kpernyer/dev/reflective/mosaic-extensions`.
 - Seeded architecture pages from the Converge and Organism KB boundary docs.
 - Seeded module pages from each local README, Cargo manifest, and public API surface.
 - Recorded extraction status, known version drift, and follow-up work.

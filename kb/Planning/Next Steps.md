@@ -18,7 +18,7 @@ Open follow-up work for the extensions workspace after the extraction.
 
 ## Version and Dependency Cleanup
 
-- Keep all extension release lines pinned to the Converge `3.8.1` contract
+- Keep all extension release lines pinned to the Converge `3.9.1` contract
   baseline.
 - Reduce direct `converge-core` dependencies where public contracts now exist.
 - Remove local path patches when the target Converge crates are published.
