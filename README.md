@@ -6,6 +6,12 @@ Mosaic keeps Converge small and stable while still letting formations use
 strong policy engines, trained models, source-specific ports, optimization
 solvers, generic providers, memory, analytics, and SMT evidence.
 
+## Boundary
+
+> Owns: reusable specialist capability families (policy, models, ports, solvers, adapters, memory, analytics, SMT) that propose evidence/capabilities through Converge-shaped contracts. Does NOT own: product consequence; admission or promotion (→ Converge).
+
+— Canonical claim: [Mosaic Extensions](https://github.com/Reflective-Lab/reflective/blob/main/KB/04-architecture/current-system-map.md#mosaic-extensions) in the boundary registry. Update there first; this README quotes that source.
+
 ## Workspace Shape
 
 This directory is a multi-repo container, not a single Cargo workspace. Enter an
