@@ -7,6 +7,12 @@ date: 2026-05-05
 
 Curated catalog for the Converge extensions workspace.
 
+## Positioning
+
+| Entity | Description | Location |
+|---|---|---|
+| Positioning | Combined elevator pitch for the reasoning extensions — six minds, one governed truth | [Positioning](Positioning.md) |
+
 ## Extension Repositories
 
 | Entity | Description | Location |

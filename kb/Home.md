@@ -17,6 +17,10 @@ analytics, policy engines, and source-specific connector ports.
 **Start here:** [[Ecosystem]], then [[Architecture/Extension Topology]] and
 [[Architecture/Converge Boundary]].
 
+**The pitch:** [[Positioning]] — six minds, one governed truth: the combined
+elevator pitch for the reasoning extensions, with links to each per-extension
+chapter.
+
 **For downstream apps:** [[Capability Matrix]] — every callable function across the eight modules, with algorithm, tagline, and why it matters.
 
 **Meta:** [[INDEX]] - entity catalog | [[LOG]] - mutation log

@@ -20,16 +20,32 @@ cross-cutting.
 
 ## Extension Repositories
 
+Three sub-families — see `kb/Architecture/Extension Topology.md` for the full
+split and the question each reasoning extension answers.
+
+**Reasoning extensions** (each has a `kb/Positioning.md`):
+
 | Directory | Owns |
 |---|---|
 | `arbiter-policy/` | Cedar policy gates, delegation checks, and authorization suggestors. |
 | `crucible-models/` | Training pipelines, trained-artifact packs, and classifier suggestors. |
-| `embassy-ports/` | Source-specific connector ports where the external system identity is part of the contract. |
 | `ferrox-solvers/` | Native optimization solvers and solver-backed suggestors. |
-| `manifold-adapters/` | Generic storage, vector, provider, and tool adapters. |
 | `mnemos-knowledge/` | Knowledge, recall, retrieval, storage, and agentic memory suggestors. |
 | `prism-analytics/` | Closed-form analytics, feature extraction, inference, fuzzy logic, and analytic packs. |
 | `soter-smt/` | SMT-backed safety evidence, CVC5 FFI, and solver suggestors. |
+
+**Connectivity extensions:**
+
+| Directory | Owns |
+|---|---|
+| `embassy-ports/` | Source-specific connector ports where the external system identity is part of the contract. |
+| `manifold-adapters/` | Generic storage, vector, provider, and tool adapters. |
+
+**Assembly:**
+
+| Directory | Owns |
+|---|---|
+| `integration-harness/` | Executable cross-extension checks; product-side assembly harness with path deps on sibling extensions. Not an extension. |
 
 ## Commands
 
