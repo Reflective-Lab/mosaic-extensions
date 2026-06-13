@@ -8,7 +8,7 @@ use converge_core::{AuthorityLevel, FlowAction, FlowPhase};
 use converge_kernel::{Budget, ContextKey, ContextState, Engine};
 use converge_pack::{
     DomainId, GateId, Pack, PackInputPayload, PackPlanPayload, PackSuggestor, PolicyVersionId,
-    ProposedFact, ResourceKind, TextPayload,
+    ProposedFact, ResourceKind, SubjectRef, TextPayload,
 };
 use mnemos::{
     KnowledgeBase, KnowledgeBaseConfig, KnowledgeEntry, KnowledgeHitPayload,
@@ -122,6 +122,8 @@ fn non_finance_expense_commit(amount: i64) -> DecideRequest {
 #[tokio::test]
 async fn golden_flow_uses_recall_and_fuzzy_risk_before_cedar_gate() {
     let recall_query = "high value expense finance manager approval receipt commit";
+    let subject = SubjectRef::parse("helm://expense-claims/golden-flow-001")
+        .expect("subject ref should parse");
     let tempdir = tempfile::tempdir().expect("tempdir should be available");
     let config = KnowledgeBaseConfig::default()
         .with_path(tempdir.path().join("knowledge.db").to_string_lossy())
@@ -162,31 +164,43 @@ async fn golden_flow_uses_recall_and_fuzzy_risk_before_cedar_gate() {
 
     let mut context = ContextState::new();
     context
-        .add_proposal(ProposedFact::new(
-            ContextKey::Seeds,
-            "expense-risk-input",
-            PackInputPayload::new(FuzzyInferencePack.name(), fuzzy_expense_risk_input()),
-            "integration-test",
-        ))
+        .add_proposal(
+            ProposedFact::new(
+                ContextKey::Seeds,
+                "expense-risk-input",
+                PackInputPayload::new(FuzzyInferencePack.name(), fuzzy_expense_risk_input()),
+                "integration-test",
+            )
+            .with_subject(subject.clone()),
+        )
         .expect("risk input should stage");
     context
-        .add_proposal(ProposedFact::new(
-            ContextKey::Seeds,
-            "expense-policy-query",
-            TextPayload::new(recall_query),
-            "integration-test",
-        ))
+        .add_proposal(
+            ProposedFact::new(
+                ContextKey::Seeds,
+                "expense-policy-query",
+                TextPayload::new(recall_query),
+                "integration-test",
+            )
+            .with_subject(subject.clone()),
+        )
         .expect("knowledge query should stage");
 
     let result = engine.run(context).await.expect("engine should run");
     assert!(result.converged);
 
     let hypotheses = result.context.get(ContextKey::Hypotheses);
-    let knowledge_hit = hypotheses
+    let knowledge_fact = hypotheses
         .iter()
-        .filter_map(|fact| fact.payload::<KnowledgeHitPayload>())
-        .find(|payload| payload.content.contains("High value expense commits"))
+        .find(|fact| {
+            fact.payload::<KnowledgeHitPayload>()
+                .is_some_and(|payload| payload.content.contains("High value expense commits"))
+        })
         .expect("Mnemos should retrieve the policy fixture");
+    assert_eq!(knowledge_fact.subject(), Some(&subject));
+    let knowledge_hit = knowledge_fact
+        .payload::<KnowledgeHitPayload>()
+        .expect("knowledge fact should carry typed payload");
 
     let identity = &knowledge_hit.execution_identity;
     assert_eq!(
@@ -216,6 +230,7 @@ async fn golden_flow_uses_recall_and_fuzzy_risk_before_cedar_gate() {
 
     let strategies = result.context.get(ContextKey::Strategies);
     assert_eq!(strategies.len(), 1);
+    assert_eq!(strategies[0].subject(), Some(&subject));
     let confidence = risk_confidence(
         strategies[0]
             .require_payload::<PackPlanPayload>()

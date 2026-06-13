@@ -16,6 +16,7 @@ Serialization is allowed at borders only.
 
 - `key: ContextKey`
 - `id: ProposalId`
+- optional `subject: SubjectRef`
 - typed payload erased behind a `FactPayload` boundary
 - `confidence`
 - uniform `Provenance`
@@ -48,6 +49,23 @@ semantic families, but consumers must ask for the family they understand with
 `payload::<T>()` or `require_payload::<T>()`.
 
 Unknown wire `(family, version)` fails closed at the border registry.
+
+## Subject Identity
+
+Converge now exposes `SubjectRef` as the typed app-subject carrier on
+proposals and context facts. Mosaic extensions preserve it when deriving an
+output from a specific input fact, but they do not define the subject
+vocabulary or attach authority semantics to it. Helm and app repositories own
+schemes, kinds, ids, readiness meaning, and projection policy.
+
+Current adoption:
+
+- `PackSuggestor` preserves a `PackInputPayload` subject on the emitted
+  `PackPlanPayload`, covering Prism's generic analytic packs.
+- Arbiter, Soter, Ferrox, Mnemos, Crucible, and Embassy preserve input subjects
+  on single-source derived proposals.
+- Manifold stays subject-agnostic until a Converge-facing Suggestor path needs
+  it; generic provider calls should not invent subjects.
 
 ## Execution Identity
 
@@ -85,3 +103,6 @@ The next useful bar is narrower than another payload migration:
 - Serialization uses `WireProposedFact` / `WireContextFact` at borders only.
 - Generic pack flows use `PackInputPayload` / `PackPlanPayload`, not opaque
   legacy JSON.
+- Single-source Suggestor outputs preserve the input `SubjectRef`; aggregate
+  constraints stay untagged unless the implementation can prove a common
+  subject.

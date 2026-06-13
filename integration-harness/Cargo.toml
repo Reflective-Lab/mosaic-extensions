@@ -8,7 +8,7 @@ publish = false
 [dependencies]
 arbiter = { package = "converge-arbiter-policy", path = "../arbiter-policy/crates/arbiter" }
 async-trait = { version = "0.1", optional = true }
-cedar-policy-symcc = { version = "0.4", optional = true }
+cedar-policy-symcc = { version = "0.5", optional = true }
 converge-core = "3.9.2"
 converge-kernel = "3.9.2"
 converge-pack = "3.9.2"
@@ -28,6 +28,17 @@ soter-cvc5 = [
     "dep:cedar-policy-symcc",
     "dep:soter",
 ]
+
+[patch.crates-io]
+converge-pack = { path = "../../bedrock-platform/converge/crates/pack" }
+converge-kernel = { path = "../../bedrock-platform/converge/crates/kernel" }
+converge-core = { path = "../../bedrock-platform/converge/crates/core" }
+converge-model = { path = "../../bedrock-platform/converge/crates/model" }
+converge-optimization = { path = "../../bedrock-platform/converge/crates/optimization" }
+converge-runtime = { path = "../../bedrock-platform/converge/crates/runtime" }
+converge-experience = { path = "../../bedrock-platform/converge/crates/experience" }
+converge-provider = { path = "../../bedrock-platform/converge/crates/provider" }
+
 [lints.rust]
 unsafe_code = "forbid"
 

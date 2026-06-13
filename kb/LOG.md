@@ -5,6 +5,13 @@ date: 2026-05-05
 ---
 # KB Mutation Log
 
+## 2026-06-13
+
+- Documented Converge `SubjectRef` adoption across Mosaic: Suggestors preserve
+  source subjects on single-input derived proposals, generic `PackSuggestor`
+  covers Prism pack flows, and extensions treat subject refs as opaque
+  app-owned correlation metadata rather than Helm/app authority.
+
 ## 2026-05-31
 
 - Updated README and KB pages after the cross-repository reconciliation pass:

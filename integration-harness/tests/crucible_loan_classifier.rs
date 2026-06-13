@@ -17,7 +17,7 @@
 use std::sync::Arc;
 
 use converge_kernel::{Budget, ContextKey, ContextState, Engine};
-use converge_pack::ProposedFact;
+use converge_pack::{ProposedFact, SubjectRef};
 use crucible::{
     ClassPredictionPayload, ClassificationFeaturesPayload, ClassifierModel,
     RandomForestClassifierSuggestor, RandomForestConfig, RandomForestModel, fixtures::loan_default,
@@ -78,6 +78,8 @@ fn low_risk_applicant_features() -> Vec<f64> {
 }
 
 async fn classify(features: Vec<f64>, fact_id: &str) -> (usize, Vec<f64>, String) {
+    let subject = SubjectRef::new("crucible", "loan-applications", fact_id)
+        .expect("loan subject should be valid");
     let model = trained_random_forest();
     let suggestor = RandomForestClassifierSuggestor::new(
         "crucible.loan_default.random_forest",
@@ -91,12 +93,15 @@ async fn classify(features: Vec<f64>, fact_id: &str) -> (usize, Vec<f64>, String
 
     let mut context = ContextState::new();
     context
-        .add_proposal(ProposedFact::new(
-            ContextKey::Seeds,
-            fact_id,
-            ClassificationFeaturesPayload::new(features),
-            "integration-test",
-        ))
+        .add_proposal(
+            ProposedFact::new(
+                ContextKey::Seeds,
+                fact_id,
+                ClassificationFeaturesPayload::new(features),
+                "integration-test",
+            )
+            .with_subject(subject.clone()),
+        )
         .expect("features should stage into Seeds");
 
     let result = engine.run(context).await.expect("engine should run");
@@ -104,6 +109,7 @@ async fn classify(features: Vec<f64>, fact_id: &str) -> (usize, Vec<f64>, String
 
     let evals = result.context.get(ContextKey::Evaluations);
     assert_eq!(evals.len(), 1, "expected exactly one classifier proposal");
+    assert_eq!(evals[0].subject(), Some(&subject));
     let pred = evals[0]
         .payload::<ClassPredictionPayload>()
         .expect("emitted fact should carry a typed ClassPredictionPayload");

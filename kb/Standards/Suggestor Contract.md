@@ -31,6 +31,12 @@ convergence kernel, or bypass policy gates.
 - Suggestors emit proposed facts or proposed plans through `AgentEffect`.
 - Proposed facts must carry typed extension-local provenance before crossing
   into the current string-backed `ProposedFact` contract.
+- When an output proposal is derived from a specific input `ContextFact`, the
+  Suggestor must preserve that fact's `SubjectRef` with
+  `ProvenanceSource::proposed_fact_for(...)` or
+  `ProposedFact::with_subject_from(...)`. The extension treats the ref as
+  opaque app-owned correlation metadata; it must not infer Helm readiness,
+  app authority, or domain state from the subject string.
 - The Suggestor must override `Suggestor::provenance()` to return its
   crate's canonical `*_PROVENANCE.as_str()`. The engine middleware emits
   a uniform `suggestor.execute` span carrying that string in the
@@ -107,6 +113,7 @@ across `.await`.
 Every suggestor family should have focused tests for:
 
 - happy-path proposal emission,
+- subject pass-through when the input fact carries `SubjectRef`,
 - malformed input,
 - skip behavior when output already exists,
 - negative or infeasible cases for the domain,

@@ -13,7 +13,7 @@ use arbiter::{
 };
 use cedar_policy_symcc::solver::{Decision, DecisionWithModel, Solver, SolverError};
 use converge_kernel::{Budget, ContextKey, ContextState, Engine};
-use converge_pack::ProposedFact;
+use converge_pack::{ProposedFact, SubjectRef};
 use soter::{Cvc5FfiBackend, SmtBackend, SmtQuery, SmtReport, SmtStatus};
 use tokio::io::AsyncWrite;
 
@@ -210,17 +210,22 @@ async fn soter_cvc5_backend_executes_actual_cedar_symcc_claim() {
 
 #[tokio::test]
 async fn cedar_analysis_suggestor_emits_soter_cvc5_report() {
+    let subject = SubjectRef::parse("helm://policy-invariants/expense-non-finance-commit")
+        .expect("subject ref should parse");
     let mut engine = Engine::with_budget(budget());
     engine.register_suggestor(CedarAnalysisSuggestor::new(SoterCvc5AnalysisBackend));
 
     let mut context = ContextState::new();
     context
-        .add_proposal(ProposedFact::new(
-            ContextKey::Seeds,
-            "cedar-analysis-input",
-            expense_claim_input(),
-            "integration-test",
-        ))
+        .add_proposal(
+            ProposedFact::new(
+                ContextKey::Seeds,
+                "cedar-analysis-input",
+                expense_claim_input(),
+                "integration-test",
+            )
+            .with_subject(subject.clone()),
+        )
         .expect("analysis input should stage");
 
     let result = engine.run(context).await.expect("engine should run");
@@ -228,6 +233,7 @@ async fn cedar_analysis_suggestor_emits_soter_cvc5_report() {
 
     let evaluations = result.context.get(ContextKey::Evaluations);
     assert_eq!(evaluations.len(), 1);
+    assert_eq!(evaluations[0].subject(), Some(&subject));
 
     let report = evaluations[0]
         .require_payload::<CedarAnalysisReport>()
